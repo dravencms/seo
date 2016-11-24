@@ -1,0 +1,3 @@
+{foreach $trackings AS $tracking}
+    {strtr($tracking->getTrackingService()->getCode(), ['%IDENTIFIER%' => $tracking->getIdentifier()])|noescape}
+{/foreach}
