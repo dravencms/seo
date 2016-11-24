@@ -7,11 +7,11 @@
 namespace Dravencms\AdminModule\SeoModule;
 
 
-use Dravencms\AdminModule\Components\Seo\RobotsFormFactory;
-use Dravencms\AdminModule\Components\Seo\RobotsGridFactory;
+use Dravencms\AdminModule\Components\Seo\RobotsForm\RobotsFormFactory;
+use Dravencms\AdminModule\Components\Seo\RobotsGrid\RobotsGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
-use App\Model\Seo\Entities\Robots;
-use App\Model\Seo\Repository\RobotsRepository;
+use Dravencms\Model\Seo\Entities\Robots;
+use Dravencms\Model\Seo\Repository\RobotsRepository;
 
 /**
  * Description of RobotsPresenter

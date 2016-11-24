@@ -3,9 +3,9 @@
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
 
-namespace App\Model\Seo\Repository;
+namespace Dravencms\Model\Seo\Repository;
 
-use App\Model\Seo\Entities\TrackingService;
+use Dravencms\Model\Seo\Entities\TrackingService;
 use Kdyby\Doctrine\EntityManager;
 use Nette;
 

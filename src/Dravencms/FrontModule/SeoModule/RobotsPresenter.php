@@ -2,9 +2,9 @@
 
 namespace Dravencms\FrontModule\SeoModule;
 
-use Dravencms\GlobalPresenter;
-use App\Model\Seo\Repository\RobotsRepository;
 use App\Model\Structure\Repository\MenuRepository;
+use Dravencms\GlobalPresenter;
+use Dravencms\Model\Seo\Repository\RobotsRepository;
 
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.

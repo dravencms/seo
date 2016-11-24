@@ -18,11 +18,11 @@
  * MA 02110-1301  USA
  */
 
-namespace Dravencms\AdminModule\Components\Seo;
+namespace Dravencms\AdminModule\Components\Seo\RobotsForm;
 
 use Dravencms\Components\BaseFormFactory;
-use App\Model\Seo\Entities\Robots;
-use App\Model\Seo\Repository\RobotsRepository;
+use Dravencms\Model\Seo\Entities\Robots;
+use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;

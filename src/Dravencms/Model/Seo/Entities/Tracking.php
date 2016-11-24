@@ -3,7 +3,7 @@
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
 
-namespace App\Model\Seo\Entities;
+namespace Dravencms\Model\Seo\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,15 +15,12 @@ use Nette;
  * Class Robots
  * @package App\Model\Structure\Entities
  * @ORM\Entity
- * @ORM\Table(name="seoRobots")
+ * @ORM\Table(name="seoTracking")
  */
-class Robots extends Nette\Object
+class Tracking extends Nette\Object
 {
     use Identifier;
     use TimestampableEntity;
-
-    const ACTION_ALLOW = 'Allow';
-    const ACTION_DISALLOW = 'Disallow';
 
     /**
      * @var string
@@ -35,7 +32,7 @@ class Robots extends Nette\Object
      * @var string
      * @ORM\Column(type="string",length=255, nullable=false)
      */
-    private $path;
+    private $identifier;
 
     /**
      * @var boolean
@@ -44,26 +41,26 @@ class Robots extends Nette\Object
     private $isActive;
 
     /**
-     * @var string
-     * @ORM\Column(type="string",length=255)
+     * @var TrackingService
+     * @ORM\ManyToOne(targetEntity="TrackingService", inversedBy="trackings")
+     * @ORM\JoinColumn(name="tracking_service_id", referencedColumnName="id")
      */
-    private $action;
+    private $trackingService;
 
     /**
-     * Robots constructor.
-     * @param string $name
-     * @param string $path
+     * Tracking constructor.
+     * @param TrackingService $trackingService
+     * @param $name
+     * @param $identifier
      * @param bool $isActive
-     * @param string $action
      */
-    public function __construct($name, $path, $isActive = true, $action = self::ACTION_ALLOW)
+    public function __construct(TrackingService $trackingService, $name, $identifier, $isActive = true)
     {
         $this->name = $name;
-        $this->path = $path;
+        $this->identifier = $identifier;
         $this->isActive = $isActive;
-        $this->setAction($action);
+        $this->trackingService = $trackingService;
     }
-
 
     /**
      * @param string $name
@@ -74,11 +71,11 @@ class Robots extends Nette\Object
     }
 
     /**
-     * @param string $path
+     * @param string $identifier
      */
-    public function setPath($path)
+    public function setIdentifier($identifier)
     {
-        $this->path = $path;
+        $this->identifier = $identifier;
     }
 
     /**
@@ -90,14 +87,11 @@ class Robots extends Nette\Object
     }
 
     /**
-     * @param string $action
+     * @param TrackingService $trackingService
      */
-    public function setAction($action)
+    public function setTrackingService(TrackingService $trackingService)
     {
-        if (!in_array($action, array(self::ACTION_ALLOW, self::ACTION_DISALLOW))) {
-            throw new \InvalidArgumentException("Invalid $action");
-        }
-        $this->action = $action;
+        $this->trackingService = $trackingService;
     }
 
     /**
@@ -111,9 +105,9 @@ class Robots extends Nette\Object
     /**
      * @return string
      */
-    public function getPath()
+    public function getIdentifier()
     {
-        return $this->path;
+        return $this->identifier;
     }
 
     /**
@@ -125,11 +119,11 @@ class Robots extends Nette\Object
     }
 
     /**
-     * @return string
+     * @return TrackingService
      */
-    public function getAction()
+    public function getTrackingService()
     {
-        return $this->action;
+        return $this->trackingService;
     }
     
 }

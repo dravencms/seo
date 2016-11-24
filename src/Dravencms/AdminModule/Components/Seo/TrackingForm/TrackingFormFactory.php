@@ -17,10 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-namespace Dravencms\AdminModule\Components\Seo;
+namespace Dravencms\AdminModule\Components\Seo\TrackingForm;
 
 
-use App\Model\Seo\Entities\Tracking;
+use Dravencms\Model\Seo\Entities\Tracking;
 
 /**
  * Interface TrackingFormFactory

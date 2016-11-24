@@ -19,11 +19,11 @@
  * MA 02110-1301  USA
  */
 
-namespace Dravencms\AdminModule\Components\Seo;
+namespace Dravencms\AdminModule\Components\Seo\RobotsGrid;
 
 use Dravencms\Components\BaseGridFactory;
 use App\Model\Locale\Repository\LocaleRepository;
-use App\Model\Seo\Repository\RobotsRepository;
+use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 

@@ -1,5 +1,5 @@
 <?php
-namespace Dravencms\FrontModule\Components\Seo\Seo;
+namespace Dravencms\FrontModule\Components\Seo\Seo\Tracking;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,8 +7,8 @@ namespace Dravencms\FrontModule\Components\Seo\Seo;
  * and open the template in the editor.
  */
 use Dravencms\Components\BaseControl;
-use App\Model\Seo\Entities\TrackingService;
-use App\Model\Seo\Repository\TrackingRepository;
+use Dravencms\Model\Seo\Entities\TrackingService;
+use Dravencms\Model\Seo\Repository\TrackingRepository;
 
 /**
  * Class Tracking

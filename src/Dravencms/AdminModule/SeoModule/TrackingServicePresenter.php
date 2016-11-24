@@ -7,12 +7,12 @@
 
 namespace Dravencms\AdminModule\SeoModule;
 
-use Dravencms\AdminModule\Components\Seo\TrackingServiceFormFactory;
-use Dravencms\AdminModule\Components\Seo\TrackingServiceGridFactory;
+use Dravencms\AdminModule\Components\Seo\TrackingServiceForm\TrackingServiceFormFactory;
+use Dravencms\AdminModule\Components\Seo\TrackingServiceGrid\TrackingServiceGridFactory;
 use Dravencms\AdminModule\SecuredPresenter;
-use App\Model\Seo\Entities\TrackingService;
-use App\Model\Seo\Repository\TrackingRepository;
-use App\Model\Seo\Repository\TrackingServiceRepository;
+use Dravencms\Model\Seo\Entities\TrackingService;
+use Dravencms\Model\Seo\Repository\TrackingRepository;
+use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
 
 /**
  * Description of TrackingServicePresenter

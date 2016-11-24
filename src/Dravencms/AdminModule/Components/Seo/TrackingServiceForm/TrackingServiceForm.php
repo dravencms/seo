@@ -18,11 +18,11 @@
  * MA 02110-1301  USA
  */
 
-namespace Dravencms\AdminModule\Components\Seo;
+namespace Dravencms\AdminModule\Components\Seo\TrackingServiceForm;
 
 use Dravencms\Components\BaseFormFactory;
-use App\Model\Seo\Entities\TrackingService;
-use App\Model\Seo\Repository\TrackingServiceRepository;
+use Dravencms\Model\Seo\Entities\TrackingService;
+use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;

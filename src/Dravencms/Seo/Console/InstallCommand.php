@@ -42,11 +42,28 @@ class InstallCommand extends Command
             $aclOperationDelete = new AclOperation($aclResource, 'delete', 'Allows deletion of SEO');
             $entityManager->persist($aclOperationDelete);
 
-            $adminMenuRoot = new Menu('SEO', null, 'fa-binoculars', $aclOperation);
+            $aclOperationRobotsEdit = new AclOperation($aclResource, 'robotsEdit', 'Allows editation of robots.txt');
+            $entityManager->persist($aclOperationRobotsEdit);
+            $aclOperationRobotsDelete = new AclOperation($aclResource, 'robotsDelete', 'Allows deletion of robots.txt');
+            $entityManager->persist($aclOperationRobotsDelete);
+
+            $aclOperationTrackingEdit = new AclOperation($aclResource, 'trackingEdit', 'Allows editation of tracking');
+            $entityManager->persist($aclOperationTrackingEdit);
+            $aclOperationTrackingDelete = new AclOperation($aclResource, 'trackingDelete', 'Allows deletion of tracking');
+            $entityManager->persist($aclOperationTrackingDelete);
+
+            $adminMenuRoot = new Menu('SEO', null, 'fa-binoculars', $aclOperationEdit);
             $entityManager->persist($adminMenuRoot);
 
-            $adminMenu = new Menu('Robots.txt', ':Admin:Seo:Robots', 'fa-fire', ???);
+            $adminMenu = new Menu('Robots.txt', ':Admin:Seo:Robots', 'fa-fire', $aclOperationRobotsEdit);
             $adminMenuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $adminMenuRoot);
+
+            $adminMenu = new Menu('Tracking', ':Admin:Seo:Tracking', '	fa-line-chart', $aclOperationTrackingEdit);
+            $adminMenuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $adminMenuRoot);
+
+            $adminMenu = new Menu('Tracking services', ':Admin:Seo:TrackingService', '	fa-cog', $aclOperationEdit);
+            $adminMenuRepository->getMenuRepository()->persistAsLastChildOf($adminMenu, $adminMenuRoot);
+
             $entityManager->flush();
 
             $output->writeLn('Module installed successfully');

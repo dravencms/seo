@@ -1,0 +1,11 @@
+{contentType text/plain; charset=utf-8}
+User-Agent: *
+sitemap: {link //Sitemap:default}
+Allow: /
+Disallow: /admin
+{foreach $disabled AS $d}
+    Disallow: {link $d->getPresenter().':'.$d->getAction()}
+{/foreach}
+{foreach $robots AS $robot}
+    {$robot->getAction()}: {$robot->getPath()}
+{/foreach}

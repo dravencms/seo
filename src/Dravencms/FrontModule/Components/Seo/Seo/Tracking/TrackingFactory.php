@@ -17,7 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301  USA
  */
-namespace Dravencms\FrontModule\Components\Seo\Seo;
+namespace Dravencms\FrontModule\Components\Seo\Seo\Tracking;
 
 interface TrackingFactory
 {
