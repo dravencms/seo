@@ -22,7 +22,7 @@
 namespace Dravencms\AdminModule\Components\Seo\TrackingGrid;
 
 use Dravencms\Components\BaseGridFactory;
-use App\Model\Locale\Repository\LocaleRepository;
+use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
