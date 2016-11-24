@@ -1,6 +1,6 @@
 <?php
 
-namespace Dravencms\Partner\Console;
+namespace Dravencms\Seo\Console;
 
 use App\Model\User\Repository\AclResourceRepository;
 use Kdyby\Doctrine\EntityManager;
