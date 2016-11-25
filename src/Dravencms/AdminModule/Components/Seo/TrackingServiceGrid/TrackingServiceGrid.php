@@ -21,18 +21,18 @@
 
 namespace Dravencms\AdminModule\Components\Seo\TrackingServiceGrid;
 
-use Dravencms\Components\BaseGridFactory;
+use Dravencms\Components\BaseControl\BaseControl;
+use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
 use Kdyby\Doctrine\EntityManager;
-use Nette\Application\UI\Control;
 
 /**
  * Description of TrackingServiceGrid
  *
  * @author Adam Schubert <adam.schubert@sg1-game.net>
  */
-class TrackingServiceGrid extends Control
+class TrackingServiceGrid extends BaseControl
 {
 
     /** @var BaseGridFactory */

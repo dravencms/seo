@@ -20,11 +20,11 @@
 
 namespace Dravencms\AdminModule\Components\Seo\TrackingServiceForm;
 
-use Dravencms\Components\BaseFormFactory;
+use Dravencms\Components\BaseControl\BaseControl;
+use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Seo\Entities\TrackingService;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
 use Kdyby\Doctrine\EntityManager;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 
 /**
@@ -32,7 +32,7 @@ use Nette\Application\UI\Form;
  *
  * @author Adam Schubert <adam.schubert@sg1-game.net>
  */
-class TrackingServiceForm extends Control
+class TrackingServiceForm extends BaseControl
 {
     /** @var BaseFormFactory */
     private $baseFormFactory;

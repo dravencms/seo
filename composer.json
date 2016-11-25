@@ -1,6 +1,6 @@
 {
   "name": "dravencms/seo",
-  "type": "library",
+  "type": "dravencms-package",
   "description": "SEO module for dravencms",
   "keywords": [
     "dravencms",
@@ -22,6 +22,19 @@
   "autoload": {
     "psr-0": {
       "Dravencms\\": "src/"
+    }
+  },
+  "extra": {
+    "dravencms": {
+      "configuration": {
+        "extensions": {
+          "timeline": "Dravencms\\Seo\\DI\\SeoExtension"
+        }
+      },
+      "scripts": {
+        "post-install": "Dravencms\\Seo\\Script\\PostInstall",
+        "pre-uninstall": "Dravencms\\Seo\\Script\\PreUninstall"
+      }
     }
   }
 }

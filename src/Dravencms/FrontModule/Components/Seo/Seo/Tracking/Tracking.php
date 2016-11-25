@@ -6,7 +6,7 @@ namespace Dravencms\FrontModule\Components\Seo\Seo\Tracking;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-use Dravencms\Components\BaseControl;
+use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Model\Seo\Entities\TrackingService;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
 

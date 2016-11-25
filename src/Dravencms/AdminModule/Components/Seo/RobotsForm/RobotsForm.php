@@ -20,11 +20,11 @@
 
 namespace Dravencms\AdminModule\Components\Seo\RobotsForm;
 
-use Dravencms\Components\BaseFormFactory;
+use Dravencms\Components\BaseControl\BaseControl;
+use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Seo\Entities\Robots;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Kdyby\Doctrine\EntityManager;
-use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 
 /**
@@ -32,7 +32,7 @@ use Nette\Application\UI\Form;
  *
  * @author Adam Schubert <adam.schubert@sg1-game.net>
  */
-class RobotsForm extends Control
+class RobotsForm extends BaseControl
 {
     /** @var BaseFormFactory */
     private $baseFormFactory;

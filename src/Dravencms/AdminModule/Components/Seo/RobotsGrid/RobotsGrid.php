@@ -21,18 +21,18 @@
 
 namespace Dravencms\AdminModule\Components\Seo\RobotsGrid;
 
-use Dravencms\Components\BaseGridFactory;
+use Dravencms\Components\BaseControl\BaseControl;
+use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Kdyby\Doctrine\EntityManager;
-use Nette\Application\UI\Control;
 
 /**
  * Description of RobotsGrid
  *
  * @author Adam Schubert <adam.schubert@sg1-game.net>
  */
-class RobotsGrid extends Control
+class RobotsGrid extends BaseControl
 {
 
     /** @var BaseGridFactory */
