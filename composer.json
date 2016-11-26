@@ -28,7 +28,7 @@
     "dravencms": {
       "configuration": {
         "extensions": {
-          "timeline": "Dravencms\\Seo\\DI\\SeoExtension"
+          "seo": "Dravencms\\Seo\\DI\\SeoExtension"
         }
       },
       "scripts": {
