@@ -2,14 +2,14 @@
 
 namespace Dravencms\FrontModule\SeoModule;
 
-use App\Model\Structure\Repository\MenuRepository;
-use Dravencms\GlobalPresenter;
+use Dravencms\Model\Structure\Repository\MenuRepository;
+use Dravencms\BasePresenter;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
 
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
-class RobotsPresenter extends GlobalPresenter
+class RobotsPresenter extends BasePresenter
 {
     /** @var RobotsRepository @inject */
     public $robotsRepository;

@@ -2,14 +2,14 @@
 
 namespace Dravencms\FrontModule\SeoModule;
 
-use Dravencms\GlobalPresenter;
-use App\Model\Structure\Repository\MenuRepository;
+use Dravencms\BasePresenter;
+use Dravencms\Model\Structure\Repository\MenuRepository;
 use Kdyby\Doctrine\EntityManager;
 
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
-class SitemapPresenter extends GlobalPresenter
+class SitemapPresenter extends BasePresenter
 {
     /** @var MenuRepository @inject */
     public $menuRepository;
