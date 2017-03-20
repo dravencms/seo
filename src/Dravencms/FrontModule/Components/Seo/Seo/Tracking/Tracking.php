@@ -21,6 +21,7 @@ class Tracking extends BaseControl
 
     public function __construct(TrackingRepository $trackingRepository)
     {
+        parent::__construct();
         $this->trackingRepository = $trackingRepository;
     }
 
