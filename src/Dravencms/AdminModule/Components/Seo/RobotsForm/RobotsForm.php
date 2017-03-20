@@ -89,7 +89,7 @@ class RobotsForm extends BaseControl
     }
 
     /**
-     * @return \Dravencms\Components\BaseForm
+     * @return \Dravencms\Components\BaseForm\BaseForm
      */
     protected function createComponentForm()
     {

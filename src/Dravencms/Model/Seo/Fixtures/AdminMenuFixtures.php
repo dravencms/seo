@@ -40,6 +40,7 @@ class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInter
         
         $manager->flush();
     }
+
     /**
      * Get the order of this fixture
      *

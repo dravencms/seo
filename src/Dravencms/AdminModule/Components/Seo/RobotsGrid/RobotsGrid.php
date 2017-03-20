@@ -23,6 +23,7 @@ namespace Dravencms\AdminModule\Components\Seo\RobotsGrid;
 
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
+use Dravencms\Locale\CurrentLocale;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Kdyby\Doctrine\EntityManager;
@@ -41,8 +42,8 @@ class RobotsGrid extends BaseControl
     /** @var RobotsRepository */
     private $robotsRepository;
 
-    /** @var LocaleRepository */
-    private $localeRepository;
+    /** @var CurrentLocale */
+    private $currentLocale;
 
     /** @var EntityManager */
     private $entityManager;
@@ -57,22 +58,27 @@ class RobotsGrid extends BaseControl
      * @param RobotsRepository $robotsRepository
      * @param BaseGridFactory $baseGridFactory
      * @param EntityManager $entityManager
-     * @param LocaleRepository $localeRepository
+     * @param CurrentLocale $currentLocale
      */
-    public function __construct(RobotsRepository $robotsRepository, BaseGridFactory $baseGridFactory, EntityManager $entityManager, LocaleRepository $localeRepository)
+    public function __construct(
+        RobotsRepository $robotsRepository,
+        BaseGridFactory $baseGridFactory,
+        EntityManager $entityManager,
+        CurrentLocale $currentLocale
+    )
     {
         parent::__construct();
 
         $this->baseGridFactory = $baseGridFactory;
         $this->robotsRepository = $robotsRepository;
-        $this->localeRepository = $localeRepository;
+        $this->currentLocale = $currentLocale;
         $this->entityManager = $entityManager;
     }
 
 
     /**
      * @param $name
-     * @return \Dravencms\Components\BaseGrid
+     * @return \Dravencms\Components\BaseGrid\BaseGrid
      */
     public function createComponentGrid($name)
     {
@@ -84,7 +90,7 @@ class RobotsGrid extends BaseControl
             ->setFilterText()
             ->setSuggestion();
 
-        $grid->addColumnDate('updatedAt', 'Last edit', $this->localeRepository->getLocalizedDateTimeFormat())
+        $grid->addColumnDate('updatedAt', 'Last edit', $this->currentLocale->getDateTimeFormat())
             ->setSortable()
             ->setFilterDate();
         $grid->getColumn('updatedAt')->cellPrototype->class[] = 'center';
