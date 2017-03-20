@@ -25,14 +25,17 @@ class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInter
         $manager->persist($adminMenuRoot);
  
         $adminMenu = new Menu('Robots.txt', ':Admin:Seo:Robots', 'fa-fire', $this->getReference('user-acl-operation-seo-robotsEdit'));
-        $menu->persistAsLastChildOf($adminMenu, $adminMenuRoot);
+        $adminMenu->setParent($adminMenuRoot);
+        $menu->persist($adminMenu);
     
         $adminMenu = new Menu('Tracking', ':Admin:Seo:Tracking', 'fa-line-chart', $this->getReference('user-acl-operation-seo-trackingEdit'));
-        $menu->persistAsLastChildOf($adminMenu, $adminMenuRoot);
+        $adminMenu->setParent($adminMenuRoot);
+        $menu->persist($adminMenu);
 
 
         $adminMenu = new Menu('Tracking services', ':Admin:Seo:TrackingService', 'fa-cog', $this->getReference('user-acl-operation-seo-trackingEdit'));
-        $menu->persistAsLastChildOf($adminMenu, $adminMenuRoot);
+        $adminMenu->setParent($adminMenuRoot);
+        $menu->persist($adminMenu);
 
         
         $manager->flush();
