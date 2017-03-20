@@ -19,7 +19,6 @@ class SitemapPresenter extends BasePresenter
 
     public function renderDefault()
     {
-        $this->template->translationRepository = $this->entityManager->getRepository('Gedmo\Translatable\Entity\Translation');
         $this->template->sitemap = $this->menuRepository->getSitemap();
     }
 

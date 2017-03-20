@@ -7,11 +7,10 @@
             <changefreq>always</changefreq>
             <priority>{$url->getSitemapPriority()}</priority>
             <loc>{link '//'.$url->getPresenter().':'.$url->getAction()}</loc>
-            {var $translations = $translationRepository->findTranslations($url)}
-            <xhtml:link n:foreach="$translations AS $locale => $translation"
+            <xhtml:link n:foreach="$url->getTranslations() AS $translation"
                     rel="alternate"
-                    hreflang="{$locale}"
-                    href="{link '//'.$url->getPresenter().':'.$url->getAction(), locale => $locale}"
+                    hreflang="{$translation->getLocale()->getLanguageCode()}"
+                    href="{link '//'.$url->getPresenter().':'.$url->getAction(), locale => $translation->getLocale()->getLanguageCode()}"
             />
         </url>
 </urlset>
