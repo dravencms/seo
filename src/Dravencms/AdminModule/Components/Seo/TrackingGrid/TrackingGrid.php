@@ -23,7 +23,7 @@ namespace Dravencms\AdminModule\Components\Seo\TrackingGrid;
 
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
-use Dravencms\Locale\CurrentLocale;
+use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
 use Kdyby\Doctrine\EntityManager;
@@ -58,20 +58,20 @@ class TrackingGrid extends BaseControl
      * @param TrackingRepository $trackingRepository
      * @param BaseGridFactory $baseGridFactory
      * @param EntityManager $entityManager
-     * @param CurrentLocale $currentLocale
+     * @param CurrentLocaleResolver $currentLocaleResolver
      */
     public function __construct(
         TrackingRepository $trackingRepository,
         BaseGridFactory $baseGridFactory,
         EntityManager $entityManager,
-        CurrentLocale $currentLocale
+        CurrentLocaleResolver $currentLocaleResolver
     )
     {
         parent::__construct();
 
         $this->baseGridFactory = $baseGridFactory;
         $this->trackingRepository = $trackingRepository;
-        $this->currentLocale = $currentLocale;
+        $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
         $this->entityManager = $entityManager;
     }
 
