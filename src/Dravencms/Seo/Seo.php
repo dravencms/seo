@@ -2,13 +2,15 @@
 
 namespace Dravencms\Seo;
 
+use Nette\SmartObject;
 
 /**
  * Class Seo
  * @package Dravencms\Seo
  */
-class Seo extends \Nette\Object
+class Seo
 {
+    use SmartObject;
 
     public function __construct()
     {

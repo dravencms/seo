@@ -17,8 +17,9 @@ use Nette;
  * @ORM\Entity
  * @ORM\Table(name="seoRobots")
  */
-class Robots extends Nette\Object
+class Robots
 {
+    use Nette\SmartObject;
     use Identifier;
     use TimestampableEntity;
 

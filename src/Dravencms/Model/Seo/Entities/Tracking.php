@@ -17,8 +17,9 @@ use Nette;
  * @ORM\Entity
  * @ORM\Table(name="seoTracking")
  */
-class Tracking extends Nette\Object
+class Tracking
 {
+    use Nette\SmartObject;
     use Identifier;
     use TimestampableEntity;
 
