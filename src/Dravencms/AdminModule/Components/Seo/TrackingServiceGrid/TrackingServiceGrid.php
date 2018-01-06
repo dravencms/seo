@@ -23,6 +23,7 @@ namespace Dravencms\AdminModule\Components\Seo\TrackingServiceGrid;
 
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
+use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
@@ -82,78 +83,64 @@ class TrackingServiceGrid extends BaseControl
      */
     public function createComponentGrid($name)
     {
+        /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
 
-        $grid->setModel($this->trackingServiceRepository->getTrackingServiceQueryBuilder());
+        $grid->setDataSource($this->trackingServiceRepository->getTrackingServiceQueryBuilder());
 
         $grid->addColumnText('name', 'Name')
-            ->setFilterText()
-            ->setSuggestion();
+            ->setFilterText();
 
-        $countCol = function ($row) {
-            return $row->position;
-        };
 
-        $grid->addColumnText('position', 'Position')
-            ->setColumn($countCol)
-            ->setCustomRender($countCol);
-        $grid->getColumn('position')->cellPrototype->class[] = 'center';
+        $grid->addColumnNumber('position', 'Position')
+            ->setAlign('center')
+            ->setFilterRange();
 
         $countCol = function ($row) {
             return count($row->getTrackings());
         };
 
         $grid->addColumnText('users', 'Uses')
-            ->setColumn($countCol)
-            ->setCustomRender($countCol);
-        $grid->getColumn('users')->cellPrototype->class[] = 'center';
+            ->setAlign('center')
+            ->setRenderer($countCol);
 
-        $grid->addColumnDate('updatedAt', 'Last edit', $this->currentLocale->getDateTimeFormat())
+        $grid->addColumnDateTime('updatedAt', 'Last edit')
+            ->setFormat($this->currentLocale->getDateTimeFormat())
+            ->setAlign('center')
             ->setSortable()
             ->setFilterDate();
-        $grid->getColumn('updatedAt')->cellPrototype->class[] = 'center';
 
-        if ($this->presenter->isAllowed('seo', 'trackingEdit'))
-        {
-            $grid->addActionHref('edit', 'Edit')
-                ->setIcon('pencil');
+        if ($this->presenter->isAllowed('seo', 'trackingEdit')) {
+
+            $grid->addAction('edit', '', 'edit')
+                ->setIcon('pencil')
+                ->setTitle('Upravit')
+                ->setClass('btn btn-xs btn-primary');
         }
 
         if ($this->presenter->isAllowed('seo', 'trackingDelete')) {
-            $grid->addActionHref('delete', 'Delete', 'delete!')
-                ->setCustomHref(function($row){
-                    return $this->link('delete!', $row->getId());
-                })
-                ->setDisable(function($row){
-                    return (count($row->getTrackings()) > 0);
-                })
-                ->setIcon('trash-o')
-                ->setConfirm(function ($item) {
-                    return ['Are you sure you want to delete %s ?', $item->getName()];
-                });
+            $grid->addAction('delete', '', 'delete!')
+                ->setIcon('trash')
+                ->setTitle('Smazat')
+                ->setClass('btn btn-xs btn-danger ajax')
+                ->setConfirm('Do you really want to delete row %s?', 'identifier');
+
+            $grid->allowRowsAction('delete', function($item) {
+                return !(count($item->getTrackings()) > 0);
+            });
+
+            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'gridGroupActionDelete'];
         }
-
-        $operations = ['delete' => 'Delete'];
-        $grid->setOperation($operations, [$this, 'gridOperationsHandler'])
-            ->setConfirm('delete', 'Are you sure you want to delete %i items?');
-
-        $grid->setExport();
 
         return $grid;
     }
 
     /**
-     * @param $action
-     * @param $ids
+     * @param array $ids
      */
-    public function gridOperationsHandler($action, $ids)
+    public function gridGroupActionDelete(array $ids)
     {
-        switch ($action)
-        {
-            case 'delete':
-                $this->handleDelete($ids);
-                break;
-        }
+        $this->handleDelete($ids);
     }
 
     /**
