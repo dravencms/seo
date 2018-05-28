@@ -39,6 +39,11 @@
               "addRouteFactory(@routeFactory.Seo)"
             ]
           }
+        },
+        "doctrine":{
+          "metadata": {
+            "Dravencms\\Model\\Seo": "%appDir%/../vendor/dravencms/seo/src/Dravencms/Model/Seo"
+          }
         }
       },
       "scripts": {
