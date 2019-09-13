@@ -123,26 +123,18 @@ class TrackingServiceGrid extends BaseControl
                 ->setIcon('trash')
                 ->setTitle('Smazat')
                 ->setClass('btn btn-xs btn-danger ajax')
-                ->setConfirm('Do you really want to delete row %s?', 'identifier');
+                ->setConfirm('Do you really want to delete row %s?', 'name');
 
             $grid->allowRowsAction('delete', function($item) {
                 return !(count($item->getTrackings()) > 0);
             });
 
-            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'gridGroupActionDelete'];
+            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
         }
 
         return $grid;
     }
-
-    /**
-     * @param array $ids
-     */
-    public function gridGroupActionDelete(array $ids)
-    {
-        $this->handleDelete($ids);
-    }
-
+    
     /**
      * @param $id
      * @throws \Exception
