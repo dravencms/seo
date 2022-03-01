@@ -24,5 +24,5 @@ interface TrackingFactory
     /**
      * @return Tracking
      */
-    public function create();
+    public function create(): Tracking;
 }

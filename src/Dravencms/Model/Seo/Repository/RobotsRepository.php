@@ -6,12 +6,11 @@
 namespace Dravencms\Model\Seo\Repository;
 
 use Dravencms\Model\Seo\Entities\Robots;
-use Kdyby\Doctrine\EntityManager;
-use Nette;
+use Dravencms\Database\EntityManager;
 
 class RobotsRepository
 {
-    /** @var \Kdyby\Doctrine\EntityRepository */
+    /** @var \Doctrine\Persistence\ObjectRepository|Robots */
     private $robotsRepository;
 
     /** @var EntityManager */
@@ -28,10 +27,10 @@ class RobotsRepository
     }
 
     /**
-     * @param $id
-     * @return mixed|null|Robots
+     * @param int $id
+     * @return null|Robots
      */
-    public function getOneById($id)
+    public function getOneById(int $id): Robots
     {
         return $this->robotsRepository->find($id);
     }
@@ -61,7 +60,7 @@ class RobotsRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isNameFree($name, Robots $robotsIgnore = null)
+    public function isNameFree(string $name, Robots $robotsIgnore = null): bool
     {
         $qb = $this->robotsRepository->createQueryBuilder('r')
             ->select('r')
@@ -85,7 +84,7 @@ class RobotsRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isPathFree($path, Robots $robotsIgnore = null)
+    public function isPathFree(string $path, Robots $robotsIgnore = null): bool
     {
         $qb = $this->robotsRepository->createQueryBuilder('r')
             ->select('r')
@@ -115,7 +114,7 @@ class RobotsRepository
      * @param bool $isActive
      * @return array
      */
-    public function getActive($isActive = true)
+    public function getActive(bool $isActive = true)
     {
         return $this->robotsRepository->findBy(['isActive' => $isActive]);
     }

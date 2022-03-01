@@ -8,7 +8,9 @@
 namespace Dravencms\AdminModule\SeoModule;
 
 use Dravencms\AdminModule\Components\Seo\TrackingServiceForm\TrackingServiceFormFactory;
+use Dravencms\AdminModule\Components\Seo\TrackingServiceForm\TrackingServiceForm;
 use Dravencms\AdminModule\Components\Seo\TrackingServiceGrid\TrackingServiceGridFactory;
+use Dravencms\AdminModule\Components\Seo\TrackingServiceGrid\TrackingServiceGrid;
 use Dravencms\AdminModule\SecuredPresenter;
 use Dravencms\Model\Seo\Entities\TrackingService;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
@@ -37,7 +39,7 @@ class TrackingServicePresenter extends SecuredPresenter
     /** @var TrackingService|null */
     private $trackingService = null;
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
         $this->template->h1 = 'Tracking service codes';
     }
@@ -47,7 +49,7 @@ class TrackingServicePresenter extends SecuredPresenter
      * @param integer|null $id
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit($id = null)
+    public function actionEdit(int $id = null): void
     {
         if ($id) {
             $trackingService = $this->trackingServiceRepository->getOneById($id);
@@ -64,9 +66,9 @@ class TrackingServicePresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Seo\TrackingServiceForm
+     * @return TrackingServiceForm
      */
-    protected function createComponentFormTrackingService()
+    protected function createComponentFormTrackingService(): TrackingServiceForm
     {
         $control = $this->trackingServiceFormFactory->create($this->trackingService);
         $control->onSuccess[] = function()
@@ -78,9 +80,9 @@ class TrackingServicePresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Seo\TrackingServiceGrid
+     * @return TrackingServiceGrid
      */
-    protected function createComponentGridTrackingService()
+    protected function createComponentGridTrackingService(): TrackingServiceGrid
     {
         $control = $this->trackingServiceGridFactory->create();
         $control->onDelete[] = function()

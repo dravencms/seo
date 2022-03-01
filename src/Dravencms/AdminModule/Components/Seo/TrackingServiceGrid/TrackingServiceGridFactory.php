@@ -25,5 +25,5 @@ interface TrackingServiceGridFactory
     /**
      * @return TrackingServiceGrid
      */
-    public function create();
+    public function create(): TrackingServiceGrid;
 }

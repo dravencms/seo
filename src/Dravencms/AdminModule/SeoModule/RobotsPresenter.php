@@ -8,7 +8,9 @@ namespace Dravencms\AdminModule\SeoModule;
 
 
 use Dravencms\AdminModule\Components\Seo\RobotsForm\RobotsFormFactory;
+use Dravencms\AdminModule\Components\Seo\RobotsForm\RobotsForm;
 use Dravencms\AdminModule\Components\Seo\RobotsGrid\RobotsGridFactory;
+use Dravencms\AdminModule\Components\Seo\RobotsGrid\RobotsGrid;
 use Dravencms\AdminModule\SecuredPresenter;
 use Dravencms\Model\Seo\Entities\Robots;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
@@ -32,7 +34,7 @@ class RobotsPresenter extends SecuredPresenter
     /** @var null|Robots */
     private $robots = null;
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
         $this->template->h1 = 'Robots.txt';
     }
@@ -42,7 +44,7 @@ class RobotsPresenter extends SecuredPresenter
      * @param $id
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit($id)
+    public function actionEdit(int $id = null): void
     {
         if ($id) {
             $robots = $this->robotsRepository->getOneById($id);
@@ -58,9 +60,9 @@ class RobotsPresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Seo\RobotsForm
+     * @return RobotsForm
      */
-    protected function createComponentFormRobots()
+    protected function createComponentFormRobots(): RobotsForm
     {
         $control = $this->robotsFormFactory->create($this->robots);
         $control->onSuccess[] = function()
@@ -72,9 +74,9 @@ class RobotsPresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Seo\RobotsGrid
+     * @return RobotsGrid
      */
-    public function createComponentGridRobots()
+    public function createComponentGridRobots(): RobotsGrid
     {
         $control = $this->robotsGridFactory->create();
         $control->onDelete[] = function()

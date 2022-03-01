@@ -6,12 +6,11 @@
 namespace Dravencms\Model\Seo\Repository;
 
 use Dravencms\Model\Seo\Entities\TrackingService;
-use Kdyby\Doctrine\EntityManager;
-use Nette;
+use Dravencms\Database\EntityManager;
 
 class TrackingServiceRepository
 {
-    /** @var \Kdyby\Doctrine\EntityRepository */
+    /** @var \Doctrine\Persistence\ObjectRepository|TrackingService */
     private $trackingServiceRepository;
 
     /** @var EntityManager */
@@ -28,10 +27,10 @@ class TrackingServiceRepository
     }
 
     /**
-     * @param $id
-     * @return mixed|null|TrackingService
+     * @param int $id
+     * @return null|TrackingService
      */
-    public function getOneById($id)
+    public function getOneById(int $id): TrackingService
     {
         return $this->trackingServiceRepository->find($id);
     }
@@ -61,7 +60,7 @@ class TrackingServiceRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isNameFree($name, TrackingService $ignoreTrackingService = null)
+    public function isNameFree(string $name, TrackingService $ignoreTrackingService = null): bool
     {
         $qb = $this->trackingServiceRepository->createQueryBuilder('ts')
             ->select('ts')

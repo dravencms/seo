@@ -19,7 +19,7 @@ trait TSeoPresenter
     /**
      * @param TrackingFactory $trackingFactory
      */
-    public function injectSeoTrackingFactory(TrackingFactory $trackingFactory)
+    public function injectSeoTrackingFactory(TrackingFactory $trackingFactory): void
     {
         $this->trackingFactory = $trackingFactory;
     }
@@ -27,7 +27,7 @@ trait TSeoPresenter
     /**
      * @return \Dravencms\FrontModule\Components\Seo\Seo\Tracking\Tracking
      */
-    public function createComponentSeoTracking()
+    public function createComponentSeoTracking(): void
     {
         return $this->trackingFactory->create();
     }

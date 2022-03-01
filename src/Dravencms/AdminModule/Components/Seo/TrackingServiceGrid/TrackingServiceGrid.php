@@ -25,9 +25,10 @@ use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Locale\CurrentLocaleResolver;
-use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
+use Dravencms\Model\Form\Entities\Form;
+use Nette\Security\User;
 
 /**
  * Description of TrackingServiceGrid
@@ -48,6 +49,9 @@ class TrackingServiceGrid extends BaseControl
 
     /** @var EntityManager */
     private $entityManager;
+    
+    /** @var User */
+    private $user;
 
     /**
      * @var array
@@ -59,29 +63,30 @@ class TrackingServiceGrid extends BaseControl
      * @param TrackingServiceRepository $trackingServiceRepository
      * @param BaseGridFactory $baseGridFactory
      * @param EntityManager $entityManager
+     * @param User $user
      * @param CurrentLocaleResolver $currentLocaleResolver
      */
     public function __construct(
         TrackingServiceRepository $trackingServiceRepository,
         BaseGridFactory $baseGridFactory,
         EntityManager $entityManager,
+        User $user,
         CurrentLocaleResolver $currentLocaleResolver
     )
     {
-        parent::__construct();
-
         $this->baseGridFactory = $baseGridFactory;
         $this->trackingServiceRepository = $trackingServiceRepository;
         $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
         $this->entityManager = $entityManager;
+        $this->user = $user;
     }
 
 
     /**
-     * @param $name
-     * @return \Dravencms\Components\BaseGrid\BaseGrid
+     * @param string $name
+     * @return Grid
      */
-    public function createComponentGrid($name)
+    public function createComponentGrid(string $name): Grid
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
@@ -90,7 +95,6 @@ class TrackingServiceGrid extends BaseControl
 
         $grid->addColumnText('name', 'Name')
             ->setFilterText();
-
 
         $grid->addColumnNumber('position', 'Position')
             ->setAlign('center')
@@ -123,7 +127,7 @@ class TrackingServiceGrid extends BaseControl
                 ->setIcon('trash')
                 ->setTitle('Smazat')
                 ->setClass('btn btn-xs btn-danger ajax')
-                ->setConfirm('Do you really want to delete row %s?', 'name');
+                ->setConfirmation(new StringConfirmation('Do you really want to delete row %s?', 'name'));
 
             $grid->allowRowsAction('delete', function($item) {
                 return !(count($item->getTrackings()) > 0);
@@ -139,7 +143,7 @@ class TrackingServiceGrid extends BaseControl
      * @param $id
      * @throws \Exception
      */
-    public function handleDelete($id)
+    public function handleDelete($id): void
     {
         $trackingServices = $this->trackingServiceRepository->getById($id);
         foreach ($trackingServices AS $trackingService)
@@ -152,7 +156,7 @@ class TrackingServiceGrid extends BaseControl
         $this->onDelete();
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/TrackingServiceGrid.latte');

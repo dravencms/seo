@@ -25,9 +25,9 @@ use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseGrid\BaseGridFactory;
 use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Locale\CurrentLocaleResolver;
-use Dravencms\Model\Locale\Repository\LocaleRepository;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
-use Kdyby\Doctrine\EntityManager;
+use Dravencms\Database\EntityManager;
+use Nette\Security\User;
 
 /**
  * Description of RobotsGrid
@@ -48,6 +48,9 @@ class RobotsGrid extends BaseControl
 
     /** @var EntityManager */
     private $entityManager;
+    
+    /** @var User */
+    private $user;
 
     /**
      * @var array
@@ -59,17 +62,18 @@ class RobotsGrid extends BaseControl
      * @param RobotsRepository $robotsRepository
      * @param BaseGridFactory $baseGridFactory
      * @param EntityManager $entityManager
+     * @param User $user
      * @param CurrentLocaleResolver $currentLocaleResolver
      */
     public function __construct(
         RobotsRepository $robotsRepository,
         BaseGridFactory $baseGridFactory,
         EntityManager $entityManager,
+        User $user,
         CurrentLocaleResolver $currentLocaleResolver
     )
     {
-        parent::__construct();
-
+        $this->user = $user;
         $this->baseGridFactory = $baseGridFactory;
         $this->robotsRepository = $robotsRepository;
         $this->currentLocale = $currentLocaleResolver->getCurrentLocale();
@@ -78,10 +82,10 @@ class RobotsGrid extends BaseControl
 
 
     /**
-     * @param $name
-     * @return \Dravencms\Components\BaseGrid\BaseGrid
+     * @param string $name
+     * @return Grid
      */
-    public function createComponentGrid($name)
+    public function createComponentGrid(string $name): Grid
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
@@ -99,7 +103,7 @@ class RobotsGrid extends BaseControl
 
         $grid->addColumnBoolean('isActive', 'Active');
 
-        if ($this->presenter->isAllowed('seo', 'robotsEdit')) {
+        if ($this->user->isAllowed('seo', 'robotsEdit')) {
 
             $grid->addAction('edit', '', 'edit')
                 ->setIcon('pencil')
@@ -107,12 +111,12 @@ class RobotsGrid extends BaseControl
                 ->setClass('btn btn-xs btn-primary');
         }
 
-        if ($this->presenter->isAllowed('seo', 'robotsDelete')) {
+        if ($this->user->isAllowed('seo', 'robotsDelete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
                 ->setTitle('Smazat')
                 ->setClass('btn btn-xs btn-danger ajax')
-                ->setConfirm('Do you really want to delete row %s?', 'name');
+                ->setConfirmation(new StringConfirmation('Do you really want to delete row %s?', 'name'));
 
             $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
         }
@@ -124,7 +128,7 @@ class RobotsGrid extends BaseControl
      * @param $id
      * @throws \Exception
      */
-    public function handleDelete($id)
+    public function handleDelete($id): void
     {
         $robots = $this->robotsRepository->getById($id);
         foreach ($robots AS $robot)
@@ -137,7 +141,7 @@ class RobotsGrid extends BaseControl
         $this->onDelete();
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/RobotsGrid.latte');

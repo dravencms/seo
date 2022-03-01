@@ -6,7 +6,7 @@
 namespace Dravencms\Model\Seo\Fixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Dravencms\Model\Seo\Entities\TrackingService;
 
 class TrackingServiceFixtures extends AbstractFixture
@@ -16,7 +16,7 @@ class TrackingServiceFixtures extends AbstractFixture
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $ga = '<script>
   (function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){

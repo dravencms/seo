@@ -25,5 +25,5 @@ interface RobotsGridFactory
     /**
      * @return RobotsGrid
      */
-    public function create();
+    public function create(): RobotsGrid;
 }

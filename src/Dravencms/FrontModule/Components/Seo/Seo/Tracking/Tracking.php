@@ -21,11 +21,10 @@ class Tracking extends BaseControl
 
     public function __construct(TrackingRepository $trackingRepository)
     {
-        parent::__construct();
         $this->trackingRepository = $trackingRepository;
     }
 
-    public function renderHeader()
+    public function renderHeader(): void
     {
         $template = $this->template;
         $template->trackings = $this->trackingRepository->getByPosition(TrackingService::POSITION_HEADER);
@@ -33,7 +32,7 @@ class Tracking extends BaseControl
         $template->render();
     }
 
-    public function renderFooter()
+    public function renderFooter(): void
     {
         $template = $this->template;
         $template->trackings = $this->trackingRepository->getByPosition(TrackingService::POSITION_BODY_BOTTOM);

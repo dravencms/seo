@@ -8,7 +8,7 @@ namespace Dravencms\Model\Seo\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Dravencms\Database\Attributes\Identifier;
 use Nette;
 
 /**
@@ -57,7 +57,7 @@ class Robots
      * @param bool $isActive
      * @param string $action
      */
-    public function __construct($name, $path, $isActive = true, $action = self::ACTION_ALLOW)
+    public function __construct(string $name, string $path, bool $isActive = true, string $action = self::ACTION_ALLOW)
     {
         $this->name = $name;
         $this->path = $path;
@@ -69,7 +69,7 @@ class Robots
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -77,7 +77,7 @@ class Robots
     /**
      * @param string $path
      */
-    public function setPath($path)
+    public function setPath(string $path): void
     {
         $this->path = $path;
     }
@@ -85,7 +85,7 @@ class Robots
     /**
      * @param boolean $isActive
      */
-    public function setIsActive($isActive)
+    public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
     }
@@ -93,7 +93,7 @@ class Robots
     /**
      * @param string $action
      */
-    public function setAction($action)
+    public function setAction(string $action): void
     {
         if (!in_array($action, array(self::ACTION_ALLOW, self::ACTION_DISALLOW))) {
             throw new \InvalidArgumentException("Invalid $action");
@@ -104,7 +104,7 @@ class Robots
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -112,7 +112,7 @@ class Robots
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -120,7 +120,7 @@ class Robots
     /**
      * @return boolean
      */
-    public function isActive()
+    public function isActive(): bool
     {
         return $this->isActive;
     }
@@ -128,7 +128,7 @@ class Robots
     /**
      * @return string
      */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }

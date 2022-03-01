@@ -28,5 +28,5 @@ interface TrackingServiceFormFactory
      * @param TrackingService|null $trackingService
      * @return TrackingServiceForm
      */
-    public function create(TrackingService $trackingService = null);
+    public function create(TrackingService $trackingService = null): TrackingServiceForm;
 }

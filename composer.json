@@ -15,8 +15,10 @@
     }
   ],
   "require": {
-    "dravencms/structure": "^v1.0",
-    "dravencms/admin": "^v1.0"
+    "dravencms/admin": ">=2.0"
+  },
+  "suggest": {
+    "dravencms/structure": "Allows seo components to be used in cms"
   },
   "require-dev": {
     "nette/tester": "@dev"
@@ -28,28 +30,7 @@
   },
   "extra": {
     "dravencms": {
-      "configuration": {
-        "extensions": {
-          "seo": "Dravencms\\Seo\\DI\\SeoExtension"
-        },
-        "services": {
-          "routeFactory.Seo": "Dravencms\\Seo\\RouteFactory",
-          "route": {
-            "setup": [
-              "addRouteFactory(@routeFactory.Seo)"
-            ]
-          }
-        },
-        "doctrine":{
-          "metadata": {
-            "Dravencms\\Model\\Seo": "%appDir%/../vendor/dravencms/seo/src/Dravencms/Model/Seo"
-          }
-        }
-      },
-      "scripts": {
-        "post-install": "Dravencms\\Seo\\Script\\PostInstall",
-        "pre-uninstall": "Dravencms\\Seo\\Script\\PreUninstall"
-      }
+      "configuration": "dravencms.config.neon"
     }
   }
 }

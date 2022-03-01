@@ -23,9 +23,10 @@ namespace Dravencms\AdminModule\Components\Seo\RobotsForm;
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Seo\Entities\Robots;
+use Dravencms\Model\Form\Entities\Form;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
-use Kdyby\Doctrine\EntityManager;
-use Nette\Application\UI\Form;
+use Dravencms\Database\EntityManager;
+use Nette\Security\User;
 
 /**
  * Description of RobotsForm
@@ -43,6 +44,9 @@ class RobotsForm extends BaseControl
     /** @var RobotsRepository */
     private $robotsRepository;
 
+    /** @var User */
+    private $user;
+    
     /** @var Robots */
     private $robots = null;
 
@@ -53,19 +57,20 @@ class RobotsForm extends BaseControl
      * RobotsForm constructor.
      * @param BaseFormFactory $baseFormFactory
      * @param EntityManager $entityManager
+     * @param User $user
      * @param RobotsRepository $robotsRepository
      * @param Robots|null $robots
      */
     public function __construct(
         BaseFormFactory $baseFormFactory,
         EntityManager $entityManager,
+        User $user,
         RobotsRepository $robotsRepository,
         Robots $robots = null
     ) {
-        parent::__construct();
 
         $this->robots = $robots;
-
+        $this->user = $user;
         $this->baseFormFactory = $baseFormFactory;
         $this->entityManager = $entityManager;
         $this->robotsRepository = $robotsRepository;
@@ -89,9 +94,9 @@ class RobotsForm extends BaseControl
     }
 
     /**
-     * @return \Dravencms\Components\BaseForm\BaseForm
+     * @return Form
      */
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = $this->baseFormFactory->create();
 
@@ -119,7 +124,7 @@ class RobotsForm extends BaseControl
     /**
      * @param Form $form
      */
-    public function editFormValidate(Form $form)
+    public function editFormValidate(Form $form): void
     {
         $values = $form->getValues();
         if (!$this->robotsRepository->isNameFree($values->name, $this->robots)) {
@@ -130,7 +135,7 @@ class RobotsForm extends BaseControl
             $form->addError('Tento kod je již zabrán.');
         }
 
-        if (!$this->presenter->isAllowed('seo', 'robotsEdit')) {
+        if (!$this->user->isAllowed('seo', 'robotsEdit')) {
             $form->addError('Nemáte oprávění editovat robots.');
         }
     }
@@ -139,7 +144,7 @@ class RobotsForm extends BaseControl
      * @param Form $form
      * @throws \Exception
      */
-    public function editFormSucceeded(Form $form)
+    public function editFormSucceeded(Form $form): void
     {
         $values = $form->getValues();
 
@@ -162,7 +167,7 @@ class RobotsForm extends BaseControl
         $this->onSuccess();
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/RobotsForm.latte');

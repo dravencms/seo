@@ -5,10 +5,9 @@
 
 namespace Dravencms\Model\Seo\Fixtures;
 
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Dravencms\Model\User\Entities\AclResource;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class AclResourceFixtures extends AbstractFixture
 {
@@ -17,7 +16,7 @@ class AclResourceFixtures extends AbstractFixture
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $resources = [
             'seo' => 'Seo'

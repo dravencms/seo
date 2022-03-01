@@ -7,12 +7,11 @@ namespace Dravencms\Model\Seo\Repository;
 
 use Dravencms\Model\Seo\Entities\Tracking;
 use Dravencms\Model\Seo\Entities\TrackingService;
-use Kdyby\Doctrine\EntityManager;
-use Nette;
+use Dravencms\Database\EntityManager;
 
 class TrackingRepository
 {
-    /** @var \Kdyby\Doctrine\EntityRepository */
+    /** @var \Doctrine\Persistence\ObjectRepository|Tracking */
     private $trackingRepository;
 
     /** @var EntityManager */
@@ -29,17 +28,17 @@ class TrackingRepository
     }
 
     /**
-     * @param $id
-     * @return mixed|null|Tracking
+     * @param int $id
+     * @return null|Tracking
      */
-    public function getOneById($id)
+    public function getOneById(int $id): Tracking
     {
         return $this->trackingRepository->find($id);
     }
 
     /**
      * @param $id
-     * @return array
+     * @return Tracking[]
      */
     public function getById($id)
     {
@@ -53,7 +52,7 @@ class TrackingRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isNameFree($name, TrackingService $trackingService, Tracking $ignoreTracking = null)
+    public function isNameFree(string $name, TrackingService $trackingService, Tracking $ignoreTracking = null): bool
     {
         $qb = $this->trackingRepository->createQueryBuilder('t')
             ->select('t')
@@ -80,7 +79,7 @@ class TrackingRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isIdentifierFree($identifier, TrackingService $trackingService, Tracking $ignoreTracking = null)
+    public function isIdentifierFree(string $identifier, TrackingService $trackingService, Tracking $ignoreTracking = null): bool
     {
         $qb = $this->trackingRepository->createQueryBuilder('t')
             ->select('t')
@@ -113,7 +112,7 @@ class TrackingRepository
      * @param string $position
      * @return array
      */
-    public function getByPosition($position = TrackingService::POSITION_HEADER)
+    public function getByPosition(string $position = TrackingService::POSITION_HEADER)
     {
         $qb = $this->trackingRepository->createQueryBuilder('t')
             ->select('t')

@@ -8,7 +8,7 @@ namespace Dravencms\Model\Seo\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Dravencms\Database\Attributes\Identifier;
 use Nette;
 
 /**
@@ -55,7 +55,7 @@ class Tracking
      * @param $identifier
      * @param bool $isActive
      */
-    public function __construct(TrackingService $trackingService, $name, $identifier, $isActive = true)
+    public function __construct(TrackingService $trackingService, string $name, string $identifier, bool $isActive = true)
     {
         $this->name = $name;
         $this->identifier = $identifier;
@@ -66,7 +66,7 @@ class Tracking
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -74,7 +74,7 @@ class Tracking
     /**
      * @param string $identifier
      */
-    public function setIdentifier($identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -82,7 +82,7 @@ class Tracking
     /**
      * @param boolean $isActive
      */
-    public function setIsActive($isActive)
+    public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
     }
@@ -90,7 +90,7 @@ class Tracking
     /**
      * @param TrackingService $trackingService
      */
-    public function setTrackingService(TrackingService $trackingService)
+    public function setTrackingService(TrackingService $trackingService): void
     {
         $this->trackingService = $trackingService;
     }
@@ -98,7 +98,7 @@ class Tracking
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -106,7 +106,7 @@ class Tracking
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -114,7 +114,7 @@ class Tracking
     /**
      * @return boolean
      */
-    public function isActive()
+    public function isActive(): bool
     {
         return $this->isActive;
     }
@@ -122,7 +122,7 @@ class Tracking
     /**
      * @return TrackingService
      */
-    public function getTrackingService()
+    public function getTrackingService(): TrackingService
     {
         return $this->trackingService;
     }

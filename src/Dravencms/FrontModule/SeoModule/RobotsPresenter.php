@@ -17,7 +17,7 @@ class RobotsPresenter extends BasePresenter
     /** @var MenuRepository @inject */
     public $menuRepository;
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
         $this->template->disabled = $this->menuRepository->getSitemap(false);
 

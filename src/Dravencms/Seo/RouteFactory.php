@@ -3,7 +3,6 @@
 namespace Dravencms\Seo;
 
 use Dravencms\Base\IRouterFactory;
-use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 
 /**
@@ -14,16 +13,18 @@ class RouteFactory implements IRouterFactory
     /**
      * @return \Nette\Application\IRouter
      */
-    public function createRouter()
+    public function createRouter(): RouteList
     {
         $router = new RouteList();
 
-        $router[] = $frontEnd = new RouteList('Front');
+        $frontEnd = new RouteList('Front');
 
-        $frontEnd[] = new Route('sitemap.xml', 'Seo:Sitemap:default');
-        $frontEnd[] = new Route('sitemap.xsl', 'Seo:Sitemap:stylesheet');
-        $frontEnd[] = new Route('robots.txt', 'Seo:Robots:default');
+        $frontEnd->addRoute('sitemap.xml', 'Seo:Sitemap:default');
+        $frontEnd->addRoute('sitemap.xsl', 'Seo:Sitemap:stylesheet');
+        $frontEnd->addRoute('robots.txt', 'Seo:Robots:default');
 
+        $router->add($frontEnd);
+        
         return $router;
     }
 }

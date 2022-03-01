@@ -8,7 +8,9 @@ namespace Dravencms\AdminModule\SeoModule;
 
 
 use Dravencms\AdminModule\Components\Seo\TrackingForm\TrackingFormFactory;
+use Dravencms\AdminModule\Components\Seo\TrackingForm\TrackingForm;
 use Dravencms\AdminModule\Components\Seo\TrackingGrid\TrackingGridFactory;
+use Dravencms\AdminModule\Components\Seo\TrackingGrid\TrackingGrid;
 use Dravencms\AdminModule\SecuredPresenter;
 use Dravencms\Model\Seo\Entities\Tracking;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
@@ -35,7 +37,7 @@ class TrackingPresenter extends SecuredPresenter
     /** @var null|Tracking */
     private $tracking = null;
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
         $this->template->h1 = 'Tracking codes';
     }
@@ -45,7 +47,7 @@ class TrackingPresenter extends SecuredPresenter
      * @param $id
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit($id)
+    public function actionEdit(int $id = null): void
     {
         if ($id) {
             $tracking = $this->trackingRepository->getOneById($id);
@@ -62,9 +64,9 @@ class TrackingPresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Seo\TrackingForm
+     * @return TrackingForm
      */
-    protected function createComponentFormTracking()
+    protected function createComponentFormTracking(): TrackingForm
     {
         $control = $this->trackingFormFactory->create($this->tracking);
         $control->onSuccess[] = function()
@@ -76,9 +78,9 @@ class TrackingPresenter extends SecuredPresenter
     }
 
     /**
-     * @return \AdminModule\Components\Seo\TrackingGrid
+     * @return TrackingGrid
      */
-    public function createComponentTrackingGrid()
+    public function createComponentTrackingGrid(): TrackingGrid
     {
         $control = $this->trackingGridFactory->create();
         $control->onDelete[] = function()

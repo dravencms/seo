@@ -25,8 +25,9 @@ use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Seo\Entities\Tracking;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
-use Kdyby\Doctrine\EntityManager;
-use Nette\Application\UI\Form;
+use Dravencms\Database\EntityManager;
+use Dravencms\Model\Form\Entities\Form;
+use Nette\Security\User;
 
 /**
  * Description of TrackingForm
@@ -47,6 +48,9 @@ class TrackingForm extends BaseControl
     /** @var TrackingServiceRepository */
     private $trackingServiceRepository;
 
+    /** @var User */
+    private $user;
+    
     /** @var Tracking */
     private $tracking = null;
 
@@ -64,14 +68,13 @@ class TrackingForm extends BaseControl
     public function __construct(
         BaseFormFactory $baseFormFactory,
         EntityManager $entityManager,
+        User $user,
         TrackingRepository $trackingRepository,
         TrackingServiceRepository $trackingServiceRepository,
         Tracking $tracking = null
     ) {
-        parent::__construct();
-
         $this->tracking = $tracking;
-
+        $this->user = $user;
         $this->baseFormFactory = $baseFormFactory;
         $this->entityManager = $entityManager;
         $this->trackingRepository = $trackingRepository;
@@ -97,9 +100,9 @@ class TrackingForm extends BaseControl
     }
 
     /**
-     * @return \Dravencms\Components\BaseForm\BaseForm
+     * @return Form
      */
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = $this->baseFormFactory->create();
 
@@ -128,7 +131,7 @@ class TrackingForm extends BaseControl
     /**
      * @param Form $form
      */
-    public function editFormValidate(Form $form)
+    public function editFormValidate(Form $form): void
     {
         $values = $form->getValues();
 
@@ -142,7 +145,7 @@ class TrackingForm extends BaseControl
             $form->addError('Tento název je již zabrán.');
         }
 
-        if (!$this->presenter->isAllowed('seo', 'trackingEdit')) {
+        if (!$this->user->isAllowed('seo', 'trackingEdit')) {
             $form->addError('Nemáte oprávění editovat tracking.');
         }
     }
@@ -151,7 +154,7 @@ class TrackingForm extends BaseControl
      * @param Form $form
      * @throws \Exception
      */
-    public function editFormSucceeded(Form $form)
+    public function editFormSucceeded(Form $form): void
     {
         $values = $form->getValues();
         $trackingService = $this->trackingServiceRepository->getOneById($values->trackingService);
@@ -173,7 +176,7 @@ class TrackingForm extends BaseControl
         $this->onSuccess();
     }
 
-    public function render()
+    public function render(): void
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/TrackingForm.latte');

@@ -32,5 +32,5 @@ interface TrackingFormFactory
      * @param Tracking|null $tracking
      * @return TrackingForm
      */
-    public function create(Tracking $tracking = null);
+    public function create(Tracking $tracking = null): TrackingForm;
 }

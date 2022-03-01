@@ -17,12 +17,12 @@ class SitemapPresenter extends BasePresenter
     /** @var EntityManager @inject */
     public $entityManager;
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
         $this->template->sitemap = $this->menuRepository->getSitemap();
     }
 
-    public function renderStylesheet()
+    public function renderStylesheet(): void
     {
         $this->template->itemURL = '{$itemURL}';
     }
