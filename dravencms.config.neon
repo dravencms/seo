@@ -1,0 +1,13 @@
+extensions:
+    dravencms.seo: Dravencms\Seo\DI\SeoExtension
+
+
+services:
+    routeFactory.Seo: Dravencms\Seo\RouteFactory
+    route:
+        setup:
+            - addRouteFactory(@routeFactory.Seo)
+
+nettrine.orm.annotations:
+    mapping:
+        Dravencms\Model\Seo: %appDir%/../vendor/dravencms/seo/src/Dravencms/Model/Seo/Entities
