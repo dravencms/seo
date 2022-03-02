@@ -24,7 +24,6 @@ use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Seo\Entities\TrackingService;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
-use Kdyby\Doctrine\EntityManager;
 use Dravencms\Database\EntityManager;
 use Dravencms\Model\Form\Entities\Form;
 use Nette\Security\User;
