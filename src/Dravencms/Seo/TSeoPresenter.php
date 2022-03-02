@@ -10,6 +10,7 @@ namespace Dravencms\Seo;
 
 
 use Dravencms\FrontModule\Components\Seo\Seo\Tracking\TrackingFactory;
+use Dravencms\FrontModule\Components\Seo\Seo\Tracking\Tracking;
 
 trait TSeoPresenter
 {
@@ -25,9 +26,9 @@ trait TSeoPresenter
     }
 
     /**
-     * @return \Dravencms\FrontModule\Components\Seo\Seo\Tracking\Tracking
+     * @return Tracking
      */
-    public function createComponentSeoTracking(): void
+    public function createComponentSeoTracking(): Tracking
     {
         return $this->trackingFactory->create();
     }
