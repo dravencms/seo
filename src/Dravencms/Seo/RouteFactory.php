@@ -2,7 +2,7 @@
 
 namespace Dravencms\Seo;
 
-use Dravencms\Base\IRouterFactory;
+use Dravencms\Application\IRouterFactory;
 use Nette\Application\Routers\RouteList;
 
 /**
