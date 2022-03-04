@@ -23,7 +23,7 @@ namespace Dravencms\AdminModule\Components\Seo\RobotsForm;
 use Dravencms\Components\BaseControl\BaseControl;
 use Dravencms\Components\BaseForm\BaseFormFactory;
 use Dravencms\Model\Seo\Entities\Robots;
-use Dravencms\Model\Form\Entities\Form;
+use Dravencms\Components\BaseForm\Form;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Dravencms\Database\EntityManager;
 use Nette\Security\User;

@@ -27,6 +27,7 @@ use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Dravencms\Database\EntityManager;
+use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
 use Nette\Security\User;
 
 /**

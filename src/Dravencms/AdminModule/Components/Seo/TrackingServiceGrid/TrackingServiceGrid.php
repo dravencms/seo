@@ -27,7 +27,7 @@ use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
 use Dravencms\Database\EntityManager;
-use Dravencms\Model\Form\Entities\Form;
+use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
 use Nette\Security\User;
 
 /**
@@ -114,7 +114,7 @@ class TrackingServiceGrid extends BaseControl
             ->setSortable()
             ->setFilterDate();
 
-        if ($this->presenter->isAllowed('seo', 'trackingEdit')) {
+        if ($this->user->isAllowed('seo', 'trackingEdit')) {
 
             $grid->addAction('edit', '', 'edit')
                 ->setIcon('pencil')
@@ -122,7 +122,7 @@ class TrackingServiceGrid extends BaseControl
                 ->setClass('btn btn-xs btn-primary');
         }
 
-        if ($this->presenter->isAllowed('seo', 'trackingDelete')) {
+        if ($this->user->isAllowed('seo', 'trackingDelete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
                 ->setTitle('Smazat')
