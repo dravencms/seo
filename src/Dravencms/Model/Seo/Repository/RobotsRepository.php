@@ -45,7 +45,7 @@ class RobotsRepository
     }
 
     /**
-     * @return \Kdyby\Doctrine\QueryBuilder
+     * @return QueryBuilder
      */
     public function getRobotsQueryBuilder()
     {

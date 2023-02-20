@@ -100,7 +100,7 @@ class TrackingRepository
     }
 
     /**
-     * @return \Kdyby\Doctrine\QueryBuilder
+     * @return QueryBuilder
      */
     public function getTrackingQueryBuilder()
     {
