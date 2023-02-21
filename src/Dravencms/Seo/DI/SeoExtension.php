@@ -17,7 +17,7 @@ class SeoExtension extends CompilerExtension
     {
         $builder = $this->getContainerBuilder();
 
-        $builder->addDefinition($this->prefix('form'))
+        $builder->addDefinition($this->prefix('seo'))
             ->setFactory(Seo::class);
 
         if (class_exists(CmsExtension::class)) {
