@@ -27,7 +27,8 @@ use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
 use Dravencms\Database\EntityManager;
-use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
+use Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation;
+use Dravencms\User\Attributes\IsAllowed;
 use Nette\Security\User;
 
 /**
@@ -129,10 +130,11 @@ class TrackingGrid extends BaseControl
      * @param $id
      * @throws \Exception
      */
+    #[IsAllowed('seo', 'trackingDelete')]
     public function handleDelete($id): void
     {
         $trackingServices = $this->trackingRepository->getById($id);
-        foreach ($trackingServices AS $trackingService)
+        foreach ($trackingServices as $trackingService)
         {
             $this->entityManager->remove($trackingService);
         }

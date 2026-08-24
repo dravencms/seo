@@ -3,9 +3,9 @@ User-Agent: *
 sitemap: {link //Sitemap:default}
 Allow: /
 Disallow: /admin
-{foreach $disabled AS $d}
+{foreach $disabled as $d}
     Disallow: {link $d->getPresenter().':'.$d->getAction()}
 {/foreach}
-{foreach $robots AS $robot}
+{foreach $robots as $robot}
     {$robot->getAction()}: {$robot->getPath()}
 {/foreach}

@@ -14,6 +14,7 @@ use Dravencms\AdminModule\Components\Seo\RobotsGrid\RobotsGrid;
 use Dravencms\AdminModule\SecuredPresenter;
 use Dravencms\Model\Seo\Entities\Robots;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
+use Dravencms\User\Attributes\IsAllowed;
 
 /**
  * Description of RobotsPresenter
@@ -40,11 +41,11 @@ class RobotsPresenter extends SecuredPresenter
     }
 
     /**
-     * @isAllowed(seo,robotsEdit)
      * @param $id
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit(int $id = null): void
+    #[IsAllowed('seo', 'robotsEdit')]
+    public function actionEdit(?int $id = null): void
     {
         if ($id) {
             $robots = $this->robotsRepository->getOneById($id);

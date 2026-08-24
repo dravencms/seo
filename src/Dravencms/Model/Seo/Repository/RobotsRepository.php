@@ -30,7 +30,7 @@ class RobotsRepository
      * @param int $id
      * @return null|Robots
      */
-    public function getOneById(int $id): Robots
+    public function getOneById(int $id): ?Robots
     {
         return $this->robotsRepository->find($id);
     }
@@ -60,14 +60,12 @@ class RobotsRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isNameFree(string $name, Robots $robotsIgnore = null): bool
+    public function isNameFree(string $name, ?Robots $robotsIgnore = null): bool
     {
         $qb = $this->robotsRepository->createQueryBuilder('r')
             ->select('r')
             ->where('r.name = :name')
-            ->setParameters([
-                'name' => $name
-            ]);
+            ->setParameter('name', $name);
 
         if ($robotsIgnore)
         {
@@ -84,14 +82,12 @@ class RobotsRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isPathFree(string $path, Robots $robotsIgnore = null): bool
+    public function isPathFree(string $path, ?Robots $robotsIgnore = null): bool
     {
         $qb = $this->robotsRepository->createQueryBuilder('r')
             ->select('r')
             ->where('r.path = :path')
-            ->setParameters([
-                'path' => $path
-            ]);
+            ->setParameter('path', $path);
 
         if ($robotsIgnore)
         {

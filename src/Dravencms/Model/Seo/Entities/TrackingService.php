@@ -6,17 +6,18 @@
 namespace Dravencms\Model\Seo\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Dravencms\Database\Attributes\Identifier;
+use Dravencms\Database\Attributes\TimestampableEntity;
 use Nette;
 
 /**
  * Class RobotsAction
  * @package App\Model\Structure\Entities
- * @ORM\Entity
- * @ORM\Table(name="seoTrackingService")
  */
+#[ORM\Entity]
+#[ORM\Table(name: "seoTrackingService")]
 class TrackingService
 {
     use Nette\SmartObject;
@@ -28,26 +29,26 @@ class TrackingService
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255, nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(type="text",nullable=false)
      */
+    #[ORM\Column(type: "text", nullable: false)]
     private $code;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255, nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $position;
 
     /**
      * @var ArrayCollection|Tracking[]
-     * @ORM\OneToMany(targetEntity="Tracking", mappedBy="trackingService",cascade={"persist"})
      */
+    #[ORM\OneToMany(targetEntity: "Tracking", mappedBy: "trackingService", cascade: ["persist"])]
     private $trackings;
 
     /**
@@ -61,6 +62,7 @@ class TrackingService
         $this->name = $name;
         $this->code = $code;
         $this->position = $position;
+        $this->trackings = new ArrayCollection();
     }
 
     /**
@@ -118,7 +120,7 @@ class TrackingService
     /**
      * @return Tracking[]|ArrayCollection
      */
-    public function getTrackings()
+    public function getTrackings(): Collection
     {
         return $this->trackings;
     }

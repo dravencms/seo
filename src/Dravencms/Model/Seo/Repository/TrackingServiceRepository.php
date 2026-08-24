@@ -30,7 +30,7 @@ class TrackingServiceRepository
      * @param int $id
      * @return null|TrackingService
      */
-    public function getOneById(int $id): TrackingService
+    public function getOneById(int $id): ?TrackingService
     {
         return $this->trackingServiceRepository->find($id);
     }
@@ -60,14 +60,12 @@ class TrackingServiceRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isNameFree(string $name, TrackingService $ignoreTrackingService = null): bool
+    public function isNameFree(string $name, ?TrackingService $ignoreTrackingService = null): bool
     {
         $qb = $this->trackingServiceRepository->createQueryBuilder('ts')
             ->select('ts')
             ->where('ts.name = :name')
-            ->setParameters([
-                'name' => $name
-            ]);
+            ->setParameter('name', $name);
 
         if ($ignoreTrackingService)
         {

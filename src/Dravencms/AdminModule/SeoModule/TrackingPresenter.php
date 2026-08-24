@@ -14,6 +14,7 @@ use Dravencms\AdminModule\Components\Seo\TrackingGrid\TrackingGrid;
 use Dravencms\AdminModule\SecuredPresenter;
 use Dravencms\Model\Seo\Entities\Tracking;
 use Dravencms\Model\Seo\Repository\TrackingRepository;
+use Dravencms\User\Attributes\IsAllowed;
 use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
 /**
  * Description of TrackingPresenter
@@ -43,11 +44,11 @@ class TrackingPresenter extends SecuredPresenter
     }
 
     /**
-     * @isAllowed(seo,trackingEdit)
      * @param $id
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionEdit(int $id = null): void
+    #[IsAllowed('seo', 'trackingEdit')]
+    public function actionEdit(?int $id = null): void
     {
         if ($id) {
             $tracking = $this->trackingRepository->getOneById($id);

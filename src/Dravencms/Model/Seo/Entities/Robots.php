@@ -5,18 +5,17 @@
 
 namespace Dravencms\Model\Seo\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Dravencms\Database\Attributes\Identifier;
+use Dravencms\Database\Attributes\TimestampableEntity;
 use Nette;
 
 /**
  * Class Robots
  * @package App\Model\Structure\Entities
- * @ORM\Entity
- * @ORM\Table(name="seoRobots")
  */
+#[ORM\Entity]
+#[ORM\Table(name: "seoRobots")]
 class Robots
 {
     use Nette\SmartObject;
@@ -28,26 +27,26 @@ class Robots
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255, nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $name;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255, nullable=false)
      */
+    #[ORM\Column(type: "string", length: 255, nullable: false)]
     private $path;
 
     /**
      * @var boolean
-     * @ORM\Column(type="boolean", nullable=false)
      */
+    #[ORM\Column(type: "boolean", nullable: false)]
     private $isActive;
 
     /**
      * @var string
-     * @ORM\Column(type="string",length=255)
      */
+    #[ORM\Column(type: "string", length: 255)]
     private $action;
 
     /**

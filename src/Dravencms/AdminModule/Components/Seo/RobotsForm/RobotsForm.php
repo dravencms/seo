@@ -66,7 +66,7 @@ class RobotsForm extends BaseControl
         EntityManager $entityManager,
         User $user,
         RobotsRepository $robotsRepository,
-        Robots $robots = null
+        ?Robots $robots = null
     ) {
 
         $this->robots = $robots;
@@ -75,22 +75,6 @@ class RobotsForm extends BaseControl
         $this->entityManager = $entityManager;
         $this->robotsRepository = $robotsRepository;
 
-
-        if ($this->robots) {
-            $defaults = [
-                'name' => $this->robots->getName(),
-                'path' => $this->robots->getPath(),
-                'action' => $this->robots->getAction(),
-                'isActive' => $this->robots->isActive()
-            ];
-
-        } else {
-            $defaults = [
-                'isActive' => true
-            ];
-        }
-
-        $this['form']->setDefaults($defaults);
     }
 
     /**
@@ -117,6 +101,15 @@ class RobotsForm extends BaseControl
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
+
+        $form->setDefaults($this->robots ? [
+            'name' => $this->robots->getName(),
+            'path' => $this->robots->getPath(),
+            'action' => $this->robots->getAction(),
+            'isActive' => $this->robots->isActive(),
+        ] : [
+            'isActive' => true,
+        ]);
 
         return $form;
     }

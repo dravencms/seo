@@ -71,7 +71,7 @@ class TrackingForm extends BaseControl
         User $user,
         TrackingRepository $trackingRepository,
         TrackingServiceRepository $trackingServiceRepository,
-        Tracking $tracking = null
+        ?Tracking $tracking = null
     ) {
         $this->tracking = $tracking;
         $this->user = $user;
@@ -80,23 +80,6 @@ class TrackingForm extends BaseControl
         $this->trackingRepository = $trackingRepository;
         $this->trackingServiceRepository = $trackingServiceRepository;
 
-
-        if ($this->tracking) {
-            $defaults = [
-                'name' => $this->tracking->getName(),
-                'identifier' => $this->tracking->getIdentifier(),
-                'trackingService' => $this->tracking->getTrackingService()->getId(),
-                'isActive' => $this->tracking->isActive()
-            ];
-        }
-        else
-        {
-            $defaults = [
-                'isActive' => true
-            ];
-        }
-
-        $this['form']->setDefaults($defaults);
     }
 
     /**
@@ -125,6 +108,15 @@ class TrackingForm extends BaseControl
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
 
+        $form->setDefaults($this->tracking ? [
+            'name' => $this->tracking->getName(),
+            'identifier' => $this->tracking->getIdentifier(),
+            'trackingService' => $this->tracking->getTrackingService()->getId(),
+            'isActive' => $this->tracking->isActive(),
+        ] : [
+            'isActive' => true,
+        ]);
+
         return $form;
     }
 
@@ -141,7 +133,7 @@ class TrackingForm extends BaseControl
             $form->addError('Tento název je již zabrán.');
         }
 
-        if (!$this->trackingRepository->isIdentifierFree($values->name, $trackingService, $this->tracking)) {
+        if (!$this->trackingRepository->isIdentifierFree($values->identifier, $trackingService, $this->tracking)) {
             $form->addError('Tento název je již zabrán.');
         }
 

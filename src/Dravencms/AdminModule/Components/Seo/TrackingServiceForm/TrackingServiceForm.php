@@ -65,7 +65,7 @@ class TrackingServiceForm extends BaseControl
         EntityManager $entityManager,
         User $user,
         TrackingServiceRepository $trackingServiceRepository,
-        TrackingService $trackingService = null
+        ?TrackingService $trackingService = null
     ) {
         $this->trackingService = $trackingService;
         $this->user = $user;
@@ -73,14 +73,6 @@ class TrackingServiceForm extends BaseControl
         $this->entityManager = $entityManager;
         $this->trackingServiceRepository = $trackingServiceRepository;
 
-
-        if ($this->trackingService) {
-            $this['form']->setDefaults([
-                'name' => $this->trackingService->getName(),
-                'code' => $this->trackingService->getCode(),
-                'position' => $this->trackingService->getPosition()
-            ]);
-        }
     }
 
     /**
@@ -104,6 +96,14 @@ class TrackingServiceForm extends BaseControl
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
+
+        if ($this->trackingService) {
+            $form->setDefaults([
+                'name' => $this->trackingService->getName(),
+                'code' => $this->trackingService->getCode(),
+                'position' => $this->trackingService->getPosition(),
+            ]);
+        }
 
         return $form;
     }

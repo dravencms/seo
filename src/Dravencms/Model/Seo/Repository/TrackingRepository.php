@@ -31,7 +31,7 @@ class TrackingRepository
      * @param int $id
      * @return null|Tracking
      */
-    public function getOneById(int $id): Tracking
+    public function getOneById(int $id): ?Tracking
     {
         return $this->trackingRepository->find($id);
     }
@@ -52,16 +52,14 @@ class TrackingRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isNameFree(string $name, TrackingService $trackingService, Tracking $ignoreTracking = null): bool
+    public function isNameFree(string $name, TrackingService $trackingService, ?Tracking $ignoreTracking = null): bool
     {
         $qb = $this->trackingRepository->createQueryBuilder('t')
             ->select('t')
             ->where('t.name = :name')
             ->andWhere('t.trackingService = :trackingService')
-            ->setParameters([
-                'name' => $name,
-                'trackingService' => $trackingService
-            ]);
+            ->setParameter('name', $name)
+            ->setParameter('trackingService', $trackingService);
 
         if ($ignoreTracking)
         {
@@ -79,16 +77,14 @@ class TrackingRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function isIdentifierFree(string $identifier, TrackingService $trackingService, Tracking $ignoreTracking = null): bool
+    public function isIdentifierFree(string $identifier, TrackingService $trackingService, ?Tracking $ignoreTracking = null): bool
     {
         $qb = $this->trackingRepository->createQueryBuilder('t')
             ->select('t')
             ->where('t.identifier = :identifier')
             ->andWhere('t.trackingService = :trackingService')
-            ->setParameters([
-                'identifier' => $identifier,
-                'trackingService' => $trackingService
-            ]);
+            ->setParameter('identifier', $identifier)
+            ->setParameter('trackingService', $trackingService);
 
         if ($ignoreTracking)
         {

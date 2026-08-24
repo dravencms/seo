@@ -2,12 +2,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="{link //stylesheet}" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-        <url n:foreach="$sitemap AS $url">
+        <url n:foreach="$sitemap as $url">
             <lastmod>{$url->getUpdatedAt()|date:'c'}</lastmod>
             <changefreq>always</changefreq>
             <priority>{$url->getSitemapPriority()}</priority>
             <loc>{link '//'.$url->getPresenter().':'.$url->getAction()}</loc>
-            <xhtml:link n:foreach="$url->getTranslations() AS $translation"
+            <xhtml:link n:foreach="$url->getTranslations() as $translation"
                     rel="alternate"
                     hreflang="{$translation->getLocale()->getLanguageCode()}"
                     href="{link '//'.$url->getPresenter().':'.$url->getAction(), locale => $translation->getLocale()->getLanguageCode()}"

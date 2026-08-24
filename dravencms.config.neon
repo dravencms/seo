@@ -8,6 +8,18 @@ services:
         setup:
             - addRouteFactory(@routeFactory.Seo)
 
-nettrine.orm.annotations:
-    mapping:
-        Dravencms\Model\Seo: %appDir%/../vendor/dravencms/seo/src/Dravencms/Model/Seo/Entities
+    seo.adminRobotsPresenter: Dravencms\AdminModule\SeoModule\RobotsPresenter
+    seo.adminTrackingPresenter: Dravencms\AdminModule\SeoModule\TrackingPresenter
+    seo.adminTrackingServicePresenter: Dravencms\AdminModule\SeoModule\TrackingServicePresenter
+    seo.frontRobotsPresenter: Dravencms\FrontModule\SeoModule\RobotsPresenter
+    seo.frontSitemapPresenter: Dravencms\FrontModule\SeoModule\SitemapPresenter
+
+nettrine.orm:
+    managers:
+        default:
+            mapping:
+                DravencmsSeo:
+                    type: attributes
+                    directories:
+                        - %appDir%/../vendor/dravencms/seo/src/Dravencms/Model/Seo
+                    namespace: Dravencms\Model\Seo

@@ -28,5 +28,5 @@ interface RobotsFormFactory
      * @param Robots|null $robots
      * @return RobotsForm
      */
-    public function create(Robots $robots = null): RobotsForm;
+    public function create(?Robots $robots = null): RobotsForm;
 }

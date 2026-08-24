@@ -27,7 +27,8 @@ use Dravencms\Components\BaseGrid\Grid;
 use Dravencms\Locale\CurrentLocaleResolver;
 use Dravencms\Model\Seo\Repository\RobotsRepository;
 use Dravencms\Database\EntityManager;
-use Ublaboo\DataGrid\Column\Action\Confirmation\StringConfirmation;
+use Contributte\Datagrid\Column\Action\Confirmation\StringConfirmation;
+use Dravencms\User\Attributes\IsAllowed;
 use Nette\Security\User;
 
 /**
@@ -129,10 +130,11 @@ class RobotsGrid extends BaseControl
      * @param $id
      * @throws \Exception
      */
+    #[IsAllowed('seo', 'robotsDelete')]
     public function handleDelete($id): void
     {
         $robots = $this->robotsRepository->getById($id);
-        foreach ($robots AS $robot)
+        foreach ($robots as $robot)
         {
             $this->entityManager->remove($robot);
         }
