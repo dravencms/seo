@@ -21,19 +21,19 @@ class AdminMenuFixtures extends AbstractFixture implements DependentFixtureInter
     {
         $menu = $manager->getRepository(Menu::class);
         
-        $adminMenuRoot = new Menu('SEO', null, 'fa-binoculars',  $this->getReference('user-acl-operation-seo-edit'));
+        $adminMenuRoot = new Menu('SEO', null, 'fa-binoculars',  $this->getReference('user-acl-operation-seo-edit', \Dravencms\Model\User\Entities\AclOperation::class));
         $manager->persist($adminMenuRoot);
  
-        $adminMenu = new Menu('Robots.txt', ':Admin:Seo:Robots', 'fa-fire', $this->getReference('user-acl-operation-seo-robotsEdit'));
+        $adminMenu = new Menu('Robots.txt', ':Admin:Seo:Robots', 'fa-fire', $this->getReference('user-acl-operation-seo-robotsEdit', \Dravencms\Model\User\Entities\AclOperation::class));
         $adminMenu->setParent($adminMenuRoot);
         $manager->persist($adminMenu);
     
-        $adminMenu = new Menu('Tracking', ':Admin:Seo:Tracking', 'fa-line-chart', $this->getReference('user-acl-operation-seo-trackingEdit'));
+        $adminMenu = new Menu('Tracking', ':Admin:Seo:Tracking', 'fa-line-chart', $this->getReference('user-acl-operation-seo-trackingEdit', \Dravencms\Model\User\Entities\AclOperation::class));
         $adminMenu->setParent($adminMenuRoot);
         $manager->persist($adminMenu);
 
 
-        $adminMenu = new Menu('Tracking services', ':Admin:Seo:TrackingService', 'fa-cog', $this->getReference('user-acl-operation-seo-trackingEdit'));
+        $adminMenu = new Menu('Tracking services', ':Admin:Seo:TrackingService', 'fa-cog', $this->getReference('user-acl-operation-seo-trackingEdit', \Dravencms\Model\User\Entities\AclOperation::class));
         $adminMenu->setParent($adminMenuRoot);
         $manager->persist($adminMenu);
 
