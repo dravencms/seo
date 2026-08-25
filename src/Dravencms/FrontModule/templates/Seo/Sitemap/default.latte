@@ -3,14 +3,14 @@
 <?xml-stylesheet type="text/xsl" href="{link //stylesheet}" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
         <url n:foreach="$sitemap as $url">
-            <lastmod>{$url->getUpdatedAt()|date:'c'}</lastmod>
-            <changefreq>always</changefreq>
-            <priority>{$url->getSitemapPriority()}</priority>
-            <loc>{link '//'.$url->getPresenter().':'.$url->getAction()}</loc>
-            <xhtml:link n:foreach="$url->getTranslations() as $translation"
+            <lastmod n:if="$url['lastModified']">{$url['lastModified']|date:'c'}</lastmod>
+            <changefreq n:if="$url['changeFrequency'] !== null">{$url['changeFrequency']}</changefreq>
+            <priority n:if="$url['priority'] !== null">{$url['priority']}</priority>
+            <loc>{$url['location']}</loc>
+            <xhtml:link n:foreach="$url['alternates'] as $alternate"
                     rel="alternate"
-                    hreflang="{$translation->getLocale()->getLanguageCode()}"
-                    href="{link '//'.$url->getPresenter().':'.$url->getAction(), locale => $translation->getLocale()->getLanguageCode()}"
+                    hreflang="{$alternate['languageCode']}"
+                    href="{$alternate['location']}"
             />
         </url>
 </urlset>

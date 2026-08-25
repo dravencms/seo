@@ -1,11 +1,8 @@
 {contentType text/plain; charset=utf-8}
-User-Agent: *
-sitemap: {link //Sitemap:default}
-Allow: /
-Disallow: /admin
-{foreach $disabled as $d}
-    Disallow: {link $d->getPresenter().':'.$d->getAction()}
+Sitemap: {link //Sitemap:default}
+{foreach $groups as $userAgent => $directives}
+User-Agent: {$userAgent}
+{foreach $directives as $directive}
+{$directive['action']}: {$directive['path']}
 {/foreach}
-{foreach $robots as $robot}
-    {$robot->getAction()}: {$robot->getPath()}
 {/foreach}

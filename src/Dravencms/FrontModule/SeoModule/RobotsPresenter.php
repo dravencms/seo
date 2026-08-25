@@ -2,26 +2,34 @@
 
 namespace Dravencms\FrontModule\SeoModule;
 
-use Dravencms\Model\Structure\Repository\MenuRepository;
 use Dravencms\BasePresenter;
-use Dravencms\Model\Seo\Repository\RobotsRepository;
+use Dravencms\Seo\Robots\RobotsCollector;
 
 /**
  * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
  */
 class RobotsPresenter extends BasePresenter
 {
-    /** @var RobotsRepository @inject */
-    public $robotsRepository;
-
-    /** @var MenuRepository @inject */
-    public $menuRepository;
+    /** @var RobotsCollector @inject */
+    public $robotsCollector;
 
     public function renderDefault(): void
     {
-        $this->template->disabled = $this->menuRepository->getSitemap(false);
+        $groups = [];
 
-        $this->template->robots = $this->robotsRepository->getActive();
+        foreach ($this->robotsCollector->getDirectives() as $directive) {
+            $path = $directive->getPath();
+            if ($path === null) {
+                $path = $this->link($directive->getDestination(), $directive->getParameters());
+            }
+
+            $groups[$directive->getUserAgent()][] = [
+                'action' => $directive->getAction(),
+                'path' => $path,
+            ];
+        }
+
+        $this->template->groups = $groups;
     }
 
 }

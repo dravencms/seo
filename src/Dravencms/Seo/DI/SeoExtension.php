@@ -2,7 +2,12 @@
 
 namespace Dravencms\Seo\DI;
 
+use Dravencms\Seo\Robots\DatabaseRobotsProvider;
+use Dravencms\Seo\Robots\RobotsCollector;
+use Dravencms\Seo\Robots\RobotsProviderInterface;
 use Dravencms\Seo\Seo;
+use Dravencms\Seo\Sitemap\SitemapCollector;
+use Dravencms\Seo\Sitemap\SitemapProviderInterface;
 use Nette\DI\CompilerExtension;
 
 use Salamek\Cms\DI\CmsExtension;
@@ -20,6 +25,15 @@ class SeoExtension extends CompilerExtension
         $builder->addDefinition($this->prefix('seo'))
             ->setFactory(Seo::class);
 
+        $builder->addDefinition($this->prefix('robotsCollector'))
+            ->setFactory(RobotsCollector::class);
+
+        $builder->addDefinition($this->prefix('sitemapCollector'))
+            ->setFactory(SitemapCollector::class);
+
+        $builder->addDefinition($this->prefix('databaseRobotsProvider'))
+            ->setFactory(DatabaseRobotsProvider::class);
+
         if (class_exists(CmsExtension::class)) {
             $this->loadCmsComponents();
             $this->loadCmsModels();
@@ -28,6 +42,21 @@ class SeoExtension extends CompilerExtension
         $this->loadComponents();
         $this->loadModels();
         $this->loadConsole();
+    }
+
+    public function beforeCompile(): void
+    {
+        $builder = $this->getContainerBuilder();
+        $robotsCollector = $builder->getDefinition($this->prefix('robotsCollector'));
+        $sitemapCollector = $builder->getDefinition($this->prefix('sitemapCollector'));
+
+        foreach ($builder->findByType(RobotsProviderInterface::class) as $serviceName => $service) {
+            $robotsCollector->addSetup('addProvider', ['@' . $serviceName]);
+        }
+
+        foreach ($builder->findByType(SitemapProviderInterface::class) as $serviceName => $service) {
+            $sitemapCollector->addSetup('addProvider', ['@' . $serviceName]);
+        }
     }
     
     protected function loadCmsModels(): void

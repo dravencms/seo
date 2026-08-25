@@ -20,7 +20,7 @@
     "nette/di": "^3.2.6"
   },
   "suggest": {
-    "dravencms/structure": "Allows seo components to be used in cms"
+    "dravencms/structure": "Provides sitemap entries and robots exclusions for Structure menus"
   },
   "require-dev": {
     "nette/tester": "@dev"

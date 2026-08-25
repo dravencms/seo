@@ -17,7 +17,7 @@ SEO administration and frontend integration for DravenCMS applications. The pack
 - DravenCMS Admin 2.3 or newer.
 - DravenCMS Locale 2.1 or newer.
 - Nette DI 3.2.6 or newer.
-- DravenCMS Structure is needed by the bundled sitemap and `robots.txt` presenters.
+- DravenCMS Structure is optional and contributes menu routes when installed.
 
 ## Installation
 
@@ -92,9 +92,47 @@ The package adds these frontend routes:
 
 | Path | Purpose |
 | --- | --- |
-| `/robots.txt` | Active robots directives and structure exclusions |
-| `/sitemap.xml` | XML sitemap generated from DravenCMS Structure |
+| `/robots.txt` | Active robots directives from all registered providers |
+| `/sitemap.xml` | XML sitemap entries from all registered providers |
 | `/sitemap.xsl` | Stylesheet used to display the XML sitemap |
+
+## Sitemap and Robots Providers
+
+Other packages can contribute records without adding a hard dependency on their own models to this package. Register a Nette DI service implementing `SitemapProviderInterface`, `RobotsProviderInterface`, or both. `SeoExtension` discovers these services while compiling the container.
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Seo;
+
+use Dravencms\Seo\Robots\RobotsDirective;
+use Dravencms\Seo\Robots\RobotsProviderInterface;
+use Dravencms\Seo\Sitemap\SitemapEntry;
+use Dravencms\Seo\Sitemap\SitemapProviderInterface;
+
+final class ContentSeoProvider implements SitemapProviderInterface, RobotsProviderInterface
+{
+    public function getSitemapEntries(): iterable
+    {
+        yield new SitemapEntry('Article:detail', ['slug' => 'example']);
+    }
+
+    public function getRobotsDirectives(): iterable
+    {
+        yield RobotsDirective::forDestination('Disallow', 'Account:private');
+        yield RobotsDirective::forPath('Allow', '/public-downloads');
+    }
+}
+```
+
+Register the provider as an ordinary autowired service:
+
+```neon
+services:
+    - App\Seo\ContentSeoProvider
+```
+
+`SitemapEntry` accepts route parameters, an optional modification date, change frequency, priority, and translated `SitemapAlternate` routes. Robots directives can target either a literal path or a Nette presenter destination. DravenCMS Structure uses this API conditionally, so neither package requires the other.
 
 ## Administration and Permissions
 
