@@ -118,14 +118,11 @@ class TrackingServiceForm extends BaseControl
             $form->addError('Tento název je již zabrán.');
         }
 
-        if (strpos($values->code, '<script') === false)
-        {
-            $form->addError('V code chybi <script> tag.');
-        }
+        $hasScript = preg_match('~<script\b[^>]*>.*?</script>~is', $values->code) === 1;
+        $hasNoscript = preg_match('~<noscript\b[^>]*>.*?</noscript>~is', $values->code) === 1;
 
-        if (strpos($values->code, '</script>') === false )
-        {
-            $form->addError('V code chybi </script> tag.');
+        if (!$hasScript && !$hasNoscript) {
+            $form->addError('Kód musí obsahovat kompletní <script> nebo <noscript> tag.');
         }
 
         if (strpos($values->code, '%IDENTIFIER%') === false)
