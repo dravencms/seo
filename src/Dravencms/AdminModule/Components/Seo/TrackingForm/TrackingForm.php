@@ -90,20 +90,20 @@ class TrackingForm extends BaseControl
         $form = $this->baseFormFactory->create();
 
         $form->addText('name')
-            ->setRequired('Please enter directive name.')
-            ->addRule(Form::MAX_LENGTH, 'Directive name name is too long.', 255);
+            ->setRequired('seo.admin.validation.trackingNameRequired')
+            ->addRule(Form::MAX_LENGTH, 'seo.admin.validation.nameTooLong', 255);
 
         $form->addText('identifier')
-            ->setRequired('Please enter identifier.')
-            ->addRule(Form::MAX_LENGTH, 'Identifier is too long.', 255);
+            ->setRequired('seo.admin.validation.identifierRequired')
+            ->addRule(Form::MAX_LENGTH, 'seo.admin.validation.identifierTooLong', 255);
 
         $form->addSelect('trackingService', null, $this->trackingServiceRepository->getPairs())
-            ->setRequired('Please enter tracking type.');
+            ->setRequired('seo.admin.validation.serviceRequired');
 
         $form->addCheckbox('isActive');
 
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', 'seo.admin.action.save');
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
@@ -130,15 +130,15 @@ class TrackingForm extends BaseControl
         $trackingService = $this->trackingServiceRepository->getOneById($values->trackingService);
 
         if (!$this->trackingRepository->isNameFree($values->name, $trackingService, $this->tracking)) {
-            $form->addError('Tento název je již zabrán.');
+            $form->addError('seo.admin.validation.nameTaken');
         }
 
         if (!$this->trackingRepository->isIdentifierFree($values->identifier, $trackingService, $this->tracking)) {
-            $form->addError('Tento název je již zabrán.');
+            $form->addError('seo.admin.validation.identifierTaken');
         }
 
         if (!$this->user->isAllowed('seo', 'trackingEdit')) {
-            $form->addError('Nemáte oprávění editovat tracking.');
+            $form->addError('seo.admin.validation.trackingForbidden');
         }
     }
 

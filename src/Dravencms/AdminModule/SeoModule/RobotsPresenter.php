@@ -37,7 +37,7 @@ class RobotsPresenter extends SecuredPresenter
 
     public function renderDefault(): void
     {
-        $this->template->h1 = 'Robots.txt';
+        $this->template->h1 = $this->translator->translate('seo.admin.title.robots');
     }
 
     /**
@@ -54,9 +54,9 @@ class RobotsPresenter extends SecuredPresenter
                 $this->error();
             }
             $this->robots = $robots;
-            $this->template->h1 = sprintf('Edit robots.txt direcive „%s“', $robots->getName());
+            $this->template->h1 = $this->translator->translate('seo.admin.title.editRobots', ['name' => $robots->getName()]);
         } else {
-            $this->template->h1 = 'New robots.txt directive';
+            $this->template->h1 = $this->translator->translate('seo.admin.title.newRobots');
         }
     }
 
@@ -68,7 +68,7 @@ class RobotsPresenter extends SecuredPresenter
         $control = $this->robotsFormFactory->create($this->robots);
         $control->onSuccess[] = function()
         {
-            $this->flashMessage('Rpbots has been successfully saved', 'alert-success');
+            $this->flashMessage($this->translator->translate('seo.admin.flash.robotsSaved'), 'alert-success');
             $this->redirect('Robots:');
         };
         return $control;
@@ -82,7 +82,7 @@ class RobotsPresenter extends SecuredPresenter
         $control = $this->robotsGridFactory->create();
         $control->onDelete[] = function()
         {
-            $this->flashMessage('Robots has been successfully deleted', 'alert-success');
+            $this->flashMessage($this->translator->translate('seo.admin.flash.robotsDeleted'), 'alert-success');
             $this->redirect('Robots:');
         };
         return $control;

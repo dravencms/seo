@@ -94,33 +94,33 @@ class RobotsGrid extends BaseControl
 
         $grid->setDataSource($this->robotsRepository->getRobotsQueryBuilder());
 
-        $grid->addColumnText('name', 'Name')
+        $grid->addColumnText('name', 'seo.admin.field.name')
             ->setFilterText();
 
-        $grid->addColumnDateTime('updatedAt', 'Last edit')
+        $grid->addColumnDateTime('updatedAt', 'seo.admin.field.updated')
             ->setAlign('center')
             ->setFormat($this->currentLocale->getDateTimeFormat())
             ->setSortable()
             ->setFilterDate();
 
-        $grid->addColumnBoolean('isActive', 'Active');
+        $grid->addColumnBoolean('isActive', 'seo.admin.field.active');
 
         if ($this->user->isAllowed('seo', 'robotsEdit')) {
 
             $grid->addAction('edit', '', 'edit')
                 ->setIcon('pencil')
-                ->setTitle('Upravit')
+                ->setTitle('seo.admin.action.edit')
                 ->setClass('btn btn-sm btn-primary');
         }
 
         if ($this->user->isAllowed('seo', 'robotsDelete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
-                ->setTitle('Smazat')
+                ->setTitle('seo.admin.action.delete')
                 ->setClass('btn btn-sm btn-danger ajax')
-                ->setConfirmation(new StringConfirmation('Do you really want to delete row %s?', 'name'));
+                ->setConfirmation(new StringConfirmation('seo.admin.confirm.delete', 'name'));
 
-            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
+            $grid->addGroupAction('seo.admin.action.delete')->onSelect[] = [$this, 'handleDelete'];
         }
 
         return $grid;

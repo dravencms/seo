@@ -94,10 +94,10 @@ class TrackingServiceGrid extends BaseControl
 
         $grid->setDataSource($this->trackingServiceRepository->getTrackingServiceQueryBuilder());
 
-        $grid->addColumnText('name', 'Name')
+        $grid->addColumnText('name', 'seo.admin.field.name')
             ->setFilterText();
 
-        $grid->addColumnNumber('position', 'Position')
+        $grid->addColumnNumber('position', 'seo.admin.field.position')
             ->setAlign('center')
             ->setFilterRange();
 
@@ -105,11 +105,11 @@ class TrackingServiceGrid extends BaseControl
             return count($row->getTrackings());
         };
 
-        $grid->addColumnText('users', 'Uses')
+        $grid->addColumnText('users', 'seo.admin.field.uses')
             ->setAlign('center')
             ->setRenderer($countCol);
 
-        $grid->addColumnDateTime('updatedAt', 'Last edit')
+        $grid->addColumnDateTime('updatedAt', 'seo.admin.field.updated')
             ->setFormat($this->currentLocale->getDateTimeFormat())
             ->setAlign('center')
             ->setSortable()
@@ -119,22 +119,22 @@ class TrackingServiceGrid extends BaseControl
 
             $grid->addAction('edit', '', 'edit')
                 ->setIcon('pencil')
-                ->setTitle('Upravit')
+                ->setTitle('seo.admin.action.edit')
                 ->setClass('btn btn-sm btn-primary');
         }
 
         if ($this->user->isAllowed('seo', 'trackingDelete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
-                ->setTitle('Smazat')
+                ->setTitle('seo.admin.action.delete')
                 ->setClass('btn btn-sm btn-danger ajax')
-                ->setConfirmation(new StringConfirmation('Do you really want to delete row %s?', 'name'));
+                ->setConfirmation(new StringConfirmation('seo.admin.confirm.delete', 'name'));
 
             $grid->allowRowsAction('delete', function($item) {
                 return !(count($item->getTrackings()) > 0);
             });
 
-            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
+            $grid->addGroupAction('seo.admin.action.delete')->onSelect[] = [$this, 'handleDelete'];
         }
 
         return $grid;

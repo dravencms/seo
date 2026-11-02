@@ -94,33 +94,33 @@ class TrackingGrid extends BaseControl
 
         $grid->setDataSource($this->trackingRepository->getTrackingQueryBuilder());
 
-        $grid->addColumnText('name', 'Name')
+        $grid->addColumnText('name', 'seo.admin.field.name')
             ->setFilterText();
 
-        $grid->addColumnDateTime('updatedAt', 'Last edit')
+        $grid->addColumnDateTime('updatedAt', 'seo.admin.field.updated')
             ->setFormat($this->currentLocale->getDateTimeFormat())
             ->setAlign('center')
             ->setSortable()
             ->setFilterDate();
 
-        $grid->addColumnBoolean('isActive', 'Active');
+        $grid->addColumnBoolean('isActive', 'seo.admin.field.active');
 
         if ($this->user->isAllowed('seo', 'trackingEdit')) {
 
             $grid->addAction('edit', '', 'edit')
                 ->setIcon('pencil')
-                ->setTitle('Upravit')
+                ->setTitle('seo.admin.action.edit')
                 ->setClass('btn btn-sm btn-primary');
         }
 
         if ($this->user->isAllowed('seo', 'trackingDelete')) {
             $grid->addAction('delete', '', 'delete!')
                 ->setIcon('trash')
-                ->setTitle('Smazat')
+                ->setTitle('seo.admin.action.delete')
                 ->setClass('btn btn-sm btn-danger ajax')
-                ->setConfirmation(new StringConfirmation('Do you really want to delete row %s?', 'name'));
+                ->setConfirmation(new StringConfirmation('seo.admin.confirm.delete', 'name'));
 
-            $grid->addGroupAction('Smazat')->onSelect[] = [$this, 'handleDelete'];
+            $grid->addGroupAction('seo.admin.action.delete')->onSelect[] = [$this, 'handleDelete'];
         }
 
         return $grid;

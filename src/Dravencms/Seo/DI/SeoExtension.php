@@ -2,6 +2,7 @@
 
 namespace Dravencms\Seo\DI;
 
+use Contributte\Translation\DI\TranslationProviderInterface;
 use Dravencms\Seo\Robots\DatabaseRobotsProvider;
 use Dravencms\Seo\Robots\RobotsCollector;
 use Dravencms\Seo\Robots\RobotsProviderInterface;
@@ -15,8 +16,12 @@ use Salamek\Cms\DI\CmsExtension;
  * Class SeoExtension
  * @package Dravencms\Seo\DI
  */
-class SeoExtension extends CompilerExtension
+class SeoExtension extends CompilerExtension implements TranslationProviderInterface
 {
+    public function getTranslationResources(): array
+    {
+        return [__DIR__ . '/../lang'];
+    }
 
     public function loadConfiguration(): void
     {

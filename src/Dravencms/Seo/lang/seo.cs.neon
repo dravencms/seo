@@ -1,0 +1,70 @@
+admin:
+	field:
+		name: Název
+		action: Akce
+		path: Cesta
+		active: Aktivní
+		service: Služba
+		identifier: Identifikátor
+		position: Umístění
+		code: Kód
+		uses: Počet použití
+		updated: Poslední úprava
+
+	action:
+		save: Uložit
+		edit: Upravit
+		delete: Smazat
+
+	option:
+		allow: 'Povolit (Allow)'
+		disallow: 'Zakázat (Disallow)'
+		bodyBottom: Na konci těla stránky
+		header: Hlavička stránky
+
+	title:
+		robots: Robots.txt
+		tracking: Měřicí kódy
+		trackingService: Měřicí služby
+		newRobots: Nová direktiva robots.txt
+		newTracking: Nový měřicí kód
+		newTrackingService: Nová měřicí služba
+		editRobots: Upravit direktivu robots.txt „%name%“
+		editTracking: Upravit měřicí kód „%name%“
+		editTrackingService: Upravit měřicí službu „%name%“
+
+	validation:
+		robotsNameRequired: Zadejte název direktivy.
+		trackingNameRequired: Zadejte název měřicího kódu.
+		serviceNameRequired: Zadejte název služby.
+		nameTooLong: Název smí mít nejvýše %d znaků.
+		pathRequired: Zadejte cestu.
+		pathTooLong: Cesta smí mít nejvýše %d znaků.
+		actionRequired: Vyberte typ direktivy.
+		identifierRequired: Zadejte identifikátor.
+		identifierTooLong: Identifikátor smí mít nejvýše %d znaků.
+		serviceRequired: Vyberte měřicí službu.
+		codeRequired: Zadejte kód služby.
+		positionRequired: Vyberte umístění kódu.
+		nameTaken: Tento název je již používán.
+		pathTaken: Tato cesta je již používána.
+		identifierTaken: Tento identifikátor je již používán.
+		robotsForbidden: Nemáte oprávnění upravovat direktivy robots.txt.
+		trackingForbidden: Nemáte oprávnění upravovat měřicí kódy.
+		codeTags: Kód musí obsahovat kompletní tag <script> nebo <noscript>.
+		codeIdentifier: V kódu chybí %IDENTIFIER%.
+
+	help:
+		trackingCode: Kód služby musí obsahovat tagy <script></script> nebo <noscript></noscript> a zástupný text %IDENTIFIER% pro identifikátor měření.
+
+	confirm:
+		delete: Opravdu chcete smazat „%s“?
+
+	flash:
+		robotsSaved: Direktiva robots.txt byla uložena.
+		robotsDeleted: Direktiva robots.txt byla smazána.
+		trackingSaved: Měřicí kód byl uložen.
+		trackingDeleted: Měřicí kód byl smazán.
+		serviceSaved: Měřicí služba byla uložena.
+		serviceDeleted: Měřicí služba byla smazána.
+

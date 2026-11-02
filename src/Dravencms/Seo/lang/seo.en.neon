@@ -1,0 +1,70 @@
+admin:
+	field:
+		name: Name
+		action: Action
+		path: Path
+		active: Active
+		service: Service
+		identifier: Identifier
+		position: Position
+		code: Code
+		uses: Uses
+		updated: Last edit
+
+	action:
+		save: Save
+		edit: Edit
+		delete: Delete
+
+	option:
+		allow: Allow
+		disallow: Disallow
+		bodyBottom: End of page body
+		header: Page head
+
+	title:
+		robots: Robots.txt
+		tracking: Tracking codes
+		trackingService: Tracking services
+		newRobots: New robots.txt directive
+		newTracking: New tracking code
+		newTrackingService: New tracking service
+		editRobots: Edit robots.txt directive "%name%"
+		editTracking: Edit tracking code "%name%"
+		editTrackingService: Edit tracking service "%name%"
+
+	validation:
+		robotsNameRequired: Please enter a directive name.
+		trackingNameRequired: Please enter a tracking code name.
+		serviceNameRequired: Please enter a service name.
+		nameTooLong: The name must contain at most %d characters.
+		pathRequired: Please enter a path.
+		pathTooLong: The path must contain at most %d characters.
+		actionRequired: Please select a directive type.
+		identifierRequired: Please enter an identifier.
+		identifierTooLong: The identifier must contain at most %d characters.
+		serviceRequired: Please select a tracking service.
+		codeRequired: Please enter the service code.
+		positionRequired: Please select the code position.
+		nameTaken: This name is already in use.
+		pathTaken: This path is already in use.
+		identifierTaken: This identifier is already in use.
+		robotsForbidden: You do not have permission to edit robots.txt directives.
+		trackingForbidden: You do not have permission to edit tracking codes.
+		codeTags: The code must contain a complete <script> or <noscript> tag.
+		codeIdentifier: The code is missing %IDENTIFIER%.
+
+	help:
+		trackingCode: The service code must contain <script></script> or <noscript></noscript> tags and the %IDENTIFIER% placeholder for the tracking identifier.
+
+	confirm:
+		delete: Are you sure you want to delete "%s"?
+
+	flash:
+		robotsSaved: The robots.txt directive has been saved.
+		robotsDeleted: The robots.txt directive has been deleted.
+		trackingSaved: The tracking code has been saved.
+		trackingDeleted: The tracking code has been deleted.
+		serviceSaved: The tracking service has been saved.
+		serviceDeleted: The tracking service has been deleted.
+

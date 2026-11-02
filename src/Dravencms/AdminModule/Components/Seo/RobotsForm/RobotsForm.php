@@ -85,19 +85,19 @@ class RobotsForm extends BaseControl
         $form = $this->baseFormFactory->create();
 
         $form->addText('name')
-            ->setRequired('Please enter directive name.')
-            ->addRule(Form::MAX_LENGTH, 'Directive name name is too long.', 255);
+            ->setRequired('seo.admin.validation.robotsNameRequired')
+            ->addRule(Form::MAX_LENGTH, 'seo.admin.validation.nameTooLong', 255);
 
         $form->addText('path')
-            ->setRequired('Please enter path.')
-            ->addRule(Form::MAX_LENGTH, 'Directive path is too long.', 255);
+            ->setRequired('seo.admin.validation.pathRequired')
+            ->addRule(Form::MAX_LENGTH, 'seo.admin.validation.pathTooLong', 255);
 
-        $form->addSelect('action', null, [Robots::ACTION_ALLOW => 'Allow', Robots::ACTION_DISALLOW => 'DisAllow'])
-            ->setRequired('Please enter directive type.');
+        $form->addSelect('action', null, [Robots::ACTION_ALLOW => 'seo.admin.option.allow', Robots::ACTION_DISALLOW => 'seo.admin.option.disallow'])
+            ->setRequired('seo.admin.validation.actionRequired');
 
         $form->addCheckbox('isActive');
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', 'seo.admin.action.save');
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
@@ -121,15 +121,15 @@ class RobotsForm extends BaseControl
     {
         $values = $form->getValues();
         if (!$this->robotsRepository->isNameFree($values->name, $this->robots)) {
-            $form->addError('Tento název je již zabrán.');
+            $form->addError('seo.admin.validation.nameTaken');
         }
 
         if (!$this->robotsRepository->isPathFree($values->path, $this->robots)) {
-            $form->addError('Tento kod je již zabrán.');
+            $form->addError('seo.admin.validation.pathTaken');
         }
 
         if (!$this->user->isAllowed('seo', 'robotsEdit')) {
-            $form->addError('Nemáte oprávění editovat robots.');
+            $form->addError('seo.admin.validation.robotsForbidden');
         }
     }
 

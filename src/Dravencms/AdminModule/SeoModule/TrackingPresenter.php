@@ -40,7 +40,7 @@ class TrackingPresenter extends SecuredPresenter
 
     public function renderDefault(): void
     {
-        $this->template->h1 = 'Tracking codes';
+        $this->template->h1 = $this->translator->translate('seo.admin.title.tracking');
     }
 
     /**
@@ -58,9 +58,9 @@ class TrackingPresenter extends SecuredPresenter
             }
 
             $this->tracking = $tracking;
-            $this->template->h1 = sprintf('Edit tracking code „%s“', $tracking->getName());
+            $this->template->h1 = $this->translator->translate('seo.admin.title.editTracking', ['name' => $tracking->getName()]);
         } else {
-            $this->template->h1 = 'New tracking code';
+            $this->template->h1 = $this->translator->translate('seo.admin.title.newTracking');
         }
     }
 
@@ -72,7 +72,7 @@ class TrackingPresenter extends SecuredPresenter
         $control = $this->trackingFormFactory->create($this->tracking);
         $control->onSuccess[] = function()
         {
-            $this->flashMessage('Tracking has been successfully saved', 'alert-success');
+            $this->flashMessage($this->translator->translate('seo.admin.flash.trackingSaved'), 'alert-success');
             $this->redirect('Tracking:');
         };
         return $control;
@@ -86,7 +86,7 @@ class TrackingPresenter extends SecuredPresenter
         $control = $this->trackingGridFactory->create();
         $control->onDelete[] = function()
         {
-            $this->flashMessage('Tracking has been successfully deleted', 'alert-success');
+            $this->flashMessage($this->translator->translate('seo.admin.flash.trackingDeleted'), 'alert-success');
             $this->redirect('Tracking:');
         };
         return $control;

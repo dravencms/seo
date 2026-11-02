@@ -83,16 +83,16 @@ class TrackingServiceForm extends BaseControl
         $form = $this->baseFormFactory->create();
 
         $form->addText('name')
-            ->setRequired('Please enter service name.')
-            ->addRule(Form::MAX_LENGTH, 'Service name name is too long.', 255);
+            ->setRequired('seo.admin.validation.serviceNameRequired')
+            ->addRule(Form::MAX_LENGTH, 'seo.admin.validation.nameTooLong', 255);
 
         $form->addTextArea('code')
-            ->setRequired('Please enter service code.');
+            ->setRequired('seo.admin.validation.codeRequired');
 
-        $form->addSelect('position', null, [TrackingService::POSITION_BODY_BOTTOM => 'Body Bottom', TrackingService::POSITION_HEADER => 'Header'])
-            ->setRequired('Please enter code position.');
+        $form->addSelect('position', null, [TrackingService::POSITION_BODY_BOTTOM => 'seo.admin.option.bodyBottom', TrackingService::POSITION_HEADER => 'seo.admin.option.header'])
+            ->setRequired('seo.admin.validation.positionRequired');
 
-        $form->addSubmit('send');
+        $form->addSubmit('send', 'seo.admin.action.save');
 
         $form->onValidate[] = [$this, 'editFormValidate'];
         $form->onSuccess[] = [$this, 'editFormSucceeded'];
@@ -115,23 +115,23 @@ class TrackingServiceForm extends BaseControl
     {
         $values = $form->getValues();
         if (!$this->trackingServiceRepository->isNameFree($values->name, $this->trackingService)) {
-            $form->addError('Tento název je již zabrán.');
+            $form->addError('seo.admin.validation.nameTaken');
         }
 
         $hasScript = preg_match('~<script\b[^>]*>.*?</script>~is', $values->code) === 1;
         $hasNoscript = preg_match('~<noscript\b[^>]*>.*?</noscript>~is', $values->code) === 1;
 
         if (!$hasScript && !$hasNoscript) {
-            $form->addError('Kód musí obsahovat kompletní <script> nebo <noscript> tag.');
+            $form->addError('seo.admin.validation.codeTags');
         }
 
         if (strpos($values->code, '%IDENTIFIER%') === false)
         {
-            $form->addError('V code chybi %IDENTIFIER%.');
+            $form->addError('seo.admin.validation.codeIdentifier');
         }
 
         if (!$this->user->isAllowed('seo', 'trackingEdit')) {
-            $form->addError('Nemáte oprávění editovat tracking.');
+            $form->addError('seo.admin.validation.trackingForbidden');
         }
     }
 
