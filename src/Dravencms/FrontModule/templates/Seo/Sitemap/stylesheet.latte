@@ -15,8 +15,8 @@
         <head>
             <title>
                 <xsl:choose>
-                    <xsl:when test="$fileType='Sitemap'">Sitemap</xsl:when>
-                    <xsl:otherwise>Sitemap Index</xsl:otherwise>
+                    <xsl:when test="$fileType='Sitemap'">{_'seo.sitemap.title'}</xsl:when>
+                    <xsl:otherwise>{_'seo.sitemap.indexTitle'}</xsl:otherwise>
                 </xsl:choose>
             </title>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -36,18 +36,18 @@
         </head>
         <body>
         <div id="content">
-            <h1>XML Sitemap</h1>
+            <h1>{_'seo.sitemap.heading'}</h1>
             <div>
                 <p>
                     <xsl:choose>
                         <xsl:when test="$fileType='Sitemap'">
-                            This sitemap contains
+                            {_'seo.sitemap.urlCountPrefix'}
                             <xsl:value-of select="count(sitemap:urlset/sitemap:url)"></xsl:value-of>
-                            URLs
+                            {_'seo.sitemap.urlCountSuffix'}
                         </xsl:when>
-                        <xsl:otherwise>This sitemap index contains
+                        <xsl:otherwise>{_'seo.sitemap.indexCountPrefix'}
                             <xsl:value-of select="count(sitemap:sitemapindex/sitemap:sitemap)"></xsl:value-of>
-                            sitemaps
+                            {_'seo.sitemap.indexCountSuffix'}
                         </xsl:otherwise>
                     </xsl:choose>
                 </p>
@@ -69,8 +69,8 @@
         <table cellpadding="3">
             <thead>
             <tr>
-                <th width="50%">URL</th>
-                <th>LastChange</th>
+                <th width="50%">{_'seo.sitemap.url'}</th>
+                <th>{_'seo.sitemap.lastChange'}</th>
             </tr>
             </thead>
             <tbody>
@@ -101,10 +101,10 @@
         <table cellpadding="3">
             <thead>
             <tr>
-                <th width="50%">URL</th>
-                <th>Priority</th>
-                <th>Change Frequency</th>
-                <th>LastChange</th>
+                <th width="50%">{_'seo.sitemap.url'}</th>
+                <th>{_'seo.sitemap.priority'}</th>
+                <th>{_'seo.sitemap.changeFrequency'}</th>
+                <th>{_'seo.sitemap.lastChange'}</th>
             </tr>
             </thead>
             <tbody>
@@ -129,7 +129,16 @@
                         </xsl:if>
                     </td>
                     <td>
-                        <xsl:value-of select="concat(translate(substring(sitemap:changefreq, 1, 1),concat($lower, $upper),concat($upper, $lower)),substring(sitemap:changefreq, 2))"/>
+                        <xsl:choose>
+                            <xsl:when test="sitemap:changefreq='always'">{_'seo.sitemap.frequency.always'}</xsl:when>
+                            <xsl:when test="sitemap:changefreq='hourly'">{_'seo.sitemap.frequency.hourly'}</xsl:when>
+                            <xsl:when test="sitemap:changefreq='daily'">{_'seo.sitemap.frequency.daily'}</xsl:when>
+                            <xsl:when test="sitemap:changefreq='weekly'">{_'seo.sitemap.frequency.weekly'}</xsl:when>
+                            <xsl:when test="sitemap:changefreq='monthly'">{_'seo.sitemap.frequency.monthly'}</xsl:when>
+                            <xsl:when test="sitemap:changefreq='yearly'">{_'seo.sitemap.frequency.yearly'}</xsl:when>
+                            <xsl:when test="sitemap:changefreq='never'">{_'seo.sitemap.frequency.never'}</xsl:when>
+                            <xsl:otherwise><xsl:value-of select="sitemap:changefreq"/></xsl:otherwise>
+                        </xsl:choose>
                     </td>
                     <td>
                         <xsl:value-of select="concat(substring(sitemap:lastmod,0,11),concat(' ', substring(sitemap:lastmod,12,5)))"/>

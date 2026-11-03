@@ -68,3 +68,24 @@ admin:
 		serviceSaved: The tracking service has been saved.
 		serviceDeleted: The tracking service has been deleted.
 
+
+sitemap:
+    title: 'Sitemap'
+    indexTitle: 'Sitemap Index'
+    heading: 'XML Sitemap'
+    urlCountPrefix: 'This sitemap contains'
+    urlCountSuffix: 'URLs'
+    indexCountPrefix: 'This sitemap index contains'
+    indexCountSuffix: 'sitemaps'
+    url: 'URL'
+    lastChange: 'Last change'
+    priority: 'Priority'
+    changeFrequency: 'Change frequency'
+    frequency:
+        always: 'Always'
+        hourly: 'Hourly'
+        daily: 'Daily'
+        weekly: 'Weekly'
+        monthly: 'Monthly'
+        yearly: 'Yearly'
+        never: 'Never'

@@ -68,3 +68,24 @@ admin:
 		serviceSaved: Měřicí služba byla uložena.
 		serviceDeleted: Měřicí služba byla smazána.
 
+
+sitemap:
+    title: 'Mapa webu'
+    indexTitle: 'Index map webu'
+    heading: 'XML mapa webu'
+    urlCountPrefix: 'Tato mapa webu obsahuje'
+    urlCountSuffix: 'URL'
+    indexCountPrefix: 'Tento index map webu obsahuje'
+    indexCountSuffix: 'map webu'
+    url: 'URL'
+    lastChange: 'Poslední změna'
+    priority: 'Priorita'
+    changeFrequency: 'Četnost změn'
+    frequency:
+        always: 'Vždy'
+        hourly: 'Každou hodinu'
+        daily: 'Denně'
+        weekly: 'Týdně'
+        monthly: 'Měsíčně'
+        yearly: 'Ročně'
+        never: 'Nikdy'
