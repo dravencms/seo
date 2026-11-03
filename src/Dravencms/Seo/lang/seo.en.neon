@@ -95,3 +95,19 @@ menu:
     robots: 'Robots.txt'
     tracking: 'Tracking'
     trackingServices: 'Tracking services'
+
+acl:
+    resource: 'SEO'
+    permissions:
+        edit:
+            label: 'Manage SEO settings'
+        delete:
+            label: 'Delete SEO settings'
+        robotsEdit:
+            label: 'Manage robots.txt rules'
+        robotsDelete:
+            label: 'Delete robots.txt rules'
+        trackingEdit:
+            label: 'Manage tracking settings'
+        trackingDelete:
+            label: 'Delete tracking settings'

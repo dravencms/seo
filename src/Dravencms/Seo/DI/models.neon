@@ -2,6 +2,4 @@
 - Dravencms\Model\Seo\Repository\TrackingServiceRepository
 - Dravencms\Model\Seo\Repository\RobotsRepository
 
-- Dravencms\Model\Seo\Fixtures\AclOperationFixtures
-- Dravencms\Model\Seo\Fixtures\AclResourceFixtures
 - Dravencms\Model\Seo\Fixtures\TrackingServiceFixtures

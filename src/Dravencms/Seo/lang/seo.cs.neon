@@ -95,3 +95,19 @@ menu:
     robots: 'Robots.txt'
     tracking: 'Sledování'
     trackingServices: 'Sledovací služby'
+
+acl:
+    resource: 'SEO'
+    permissions:
+        edit:
+            label: 'Spravovat nastavení SEO'
+        delete:
+            label: 'Mazat nastavení SEO'
+        robotsEdit:
+            label: 'Spravovat pravidla robots.txt'
+        robotsDelete:
+            label: 'Mazat pravidla robots.txt'
+        trackingEdit:
+            label: 'Spravovat nastavení sledování'
+        trackingDelete:
+            label: 'Mazat nastavení sledování'
