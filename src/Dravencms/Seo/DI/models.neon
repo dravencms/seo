@@ -4,5 +4,4 @@
 
 - Dravencms\Model\Seo\Fixtures\AclOperationFixtures
 - Dravencms\Model\Seo\Fixtures\AclResourceFixtures
-- Dravencms\Model\Seo\Fixtures\AdminMenuFixtures
 - Dravencms\Model\Seo\Fixtures\TrackingServiceFixtures

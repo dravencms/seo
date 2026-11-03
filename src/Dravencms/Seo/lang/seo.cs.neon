@@ -89,3 +89,9 @@ sitemap:
         monthly: 'Měsíčně'
         yearly: 'Ročně'
         never: 'Nikdy'
+
+menu:
+    root: 'SEO'
+    robots: 'Robots.txt'
+    tracking: 'Sledování'
+    trackingServices: 'Sledovací služby'

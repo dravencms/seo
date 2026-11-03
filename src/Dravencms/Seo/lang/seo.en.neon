@@ -89,3 +89,9 @@ sitemap:
         monthly: 'Monthly'
         yearly: 'Yearly'
         never: 'Never'
+
+menu:
+    root: 'SEO'
+    robots: 'Robots.txt'
+    tracking: 'Tracking'
+    trackingServices: 'Tracking services'
