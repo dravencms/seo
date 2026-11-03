@@ -21,6 +21,7 @@ use Dravencms\Model\Seo\Repository\TrackingServiceRepository;
  *
  * @author Adam Schubert
  */
+#[\Dravencms\User\Attributes\IsAllowed('seo', 'trackingEdit')]
 class TrackingPresenter extends SecuredPresenter
 {
     /** @var TrackingRepository @inject */
@@ -38,6 +39,7 @@ class TrackingPresenter extends SecuredPresenter
     /** @var null|Tracking */
     private $tracking = null;
 
+    #[\Dravencms\User\Attributes\IsAllowed('seo', 'trackingEdit')]
     public function renderDefault(): void
     {
         $this->template->h1 = $this->translator->translate('seo.admin.title.tracking');

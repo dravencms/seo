@@ -91,6 +91,7 @@ class RobotsGrid extends BaseControl
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
+        $grid->setWritePermission('seo', 'robotsEdit');
 
         $grid->setDataSource($this->robotsRepository->getRobotsQueryBuilder());
 
@@ -130,9 +131,11 @@ class RobotsGrid extends BaseControl
      * @param $id
      * @throws \Exception
      */
-    #[IsAllowed('seo', 'robotsDelete')]
+    #[\Dravencms\User\Attributes\IsAllowed('seo', 'robotsDelete')]
+    #[\Dravencms\Security\Mutation]
     public function handleDelete($id): void
     {
+        $this->requirePermission('seo', 'robotsDelete');
         $robots = $this->robotsRepository->getById($id);
         foreach ($robots as $robot)
         {

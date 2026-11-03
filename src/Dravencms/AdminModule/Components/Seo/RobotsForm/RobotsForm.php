@@ -139,6 +139,7 @@ class RobotsForm extends BaseControl
      */
     public function editFormSucceeded(Form $form): void
     {
+        $this->requirePermission('seo', 'robotsEdit');
         $values = $form->getValues();
 
 

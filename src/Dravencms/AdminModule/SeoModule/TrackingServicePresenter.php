@@ -22,6 +22,7 @@ use Dravencms\User\Attributes\IsAllowed;
  *
  * @author Adam Schubert
  */
+#[\Dravencms\User\Attributes\IsAllowed('seo', 'trackingEdit')]
 class TrackingServicePresenter extends SecuredPresenter
 {
 
@@ -40,6 +41,7 @@ class TrackingServicePresenter extends SecuredPresenter
     /** @var TrackingService|null */
     private $trackingService = null;
 
+    #[\Dravencms\User\Attributes\IsAllowed('seo', 'trackingEdit')]
     public function renderDefault(): void
     {
         $this->template->h1 = $this->translator->translate('seo.admin.title.trackingService');

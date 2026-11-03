@@ -21,6 +21,7 @@ use Dravencms\User\Attributes\IsAllowed;
  *
  * @author Adam Schubert
  */
+#[\Dravencms\User\Attributes\IsAllowed('seo', 'robotsEdit')]
 class RobotsPresenter extends SecuredPresenter
 {
     /** @var RobotsRepository @inject */
@@ -35,6 +36,7 @@ class RobotsPresenter extends SecuredPresenter
     /** @var null|Robots */
     private $robots = null;
 
+    #[\Dravencms\User\Attributes\IsAllowed('seo', 'robotsEdit')]
     public function renderDefault(): void
     {
         $this->template->h1 = $this->translator->translate('seo.admin.title.robots');

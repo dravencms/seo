@@ -91,6 +91,7 @@ class TrackingGrid extends BaseControl
     {
         /** @var Grid $grid */
         $grid = $this->baseGridFactory->create($this, $name);
+        $grid->setWritePermission('seo', 'trackingEdit');
 
         $grid->setDataSource($this->trackingRepository->getTrackingQueryBuilder());
 
@@ -130,9 +131,11 @@ class TrackingGrid extends BaseControl
      * @param $id
      * @throws \Exception
      */
-    #[IsAllowed('seo', 'trackingDelete')]
+    #[\Dravencms\User\Attributes\IsAllowed('seo', 'trackingDelete')]
+    #[\Dravencms\Security\Mutation]
     public function handleDelete($id): void
     {
+        $this->requirePermission('seo', 'trackingDelete');
         $trackingServices = $this->trackingRepository->getById($id);
         foreach ($trackingServices as $trackingService)
         {

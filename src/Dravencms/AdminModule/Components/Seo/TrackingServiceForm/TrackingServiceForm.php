@@ -141,6 +141,7 @@ class TrackingServiceForm extends BaseControl
      */
     public function editFormSucceeded(Form $form): void
     {
+        $this->requirePermission('seo', 'trackingEdit');
         $values = $form->getValues();
 
 
