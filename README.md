@@ -8,7 +8,7 @@ SEO administration and frontend integration for DravenCMS applications. The pack
 - XML sitemap and sitemap stylesheet endpoints.
 - Tracking-service templates with per-site identifiers.
 - Header and footer tracking-code placement.
-- DravenCMS admin menu and ACL fixtures.
+- Provider-defined DravenCMS admin navigation and ACL permissions.
 - Doctrine ORM attribute mappings for the package entities.
 
 ## Requirements
@@ -36,7 +36,7 @@ includes:
 
 The package configuration registers its DI extension, routes, presenters, services, and Doctrine mappings. Apply the resulting database schema changes through the Doctrine migration workflow used by your application.
 
-Load the package fixtures when you need the default admin menu, ACL resources and operations, and bundled tracking-service templates. The supplied templates include common services such as Google Analytics, Facebook Pixel, Hotjar, and Sklik.
+Run `php bin/console seo:setup` to add missing bundled tracking-service templates. Navigation and ACL definitions come from providers. The supplied templates include common services such as Google Analytics, Facebook Pixel, Hotjar, and Sklik.
 
 ## Frontend Integration
 
@@ -136,13 +136,13 @@ services:
 
 ## Administration and Permissions
 
-The package provides administration screens for robots directives, tracking entries, and tracking-service templates. Its fixtures define the `seo` ACL resource with these operations:
+The package provides administration screens for robots directives, tracking entries, and tracking-service templates. Its ACL provider defines the `seo` resource with these operations:
 
 - `edit` and `delete`
 - `robotsEdit` and `robotsDelete`
 - `trackingEdit` and `trackingDelete`
 
-The administrator group receives these permissions when the fixtures are loaded.
+Assign these permissions explicitly through the group permission editor. Setup does not grant permissions.
 
 ## License
 
