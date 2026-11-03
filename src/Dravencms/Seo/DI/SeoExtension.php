@@ -26,6 +26,8 @@ class SeoExtension extends CompilerExtension implements TranslationProviderInter
     public function loadConfiguration(): void
     {
         $builder = $this->getContainerBuilder();
+        $builder->addDefinition($this->prefix('defaultDataInstaller'))->setFactory(\Dravencms\Seo\Setup\DefaultDataInstaller::class);
+        $builder->addDefinition($this->prefix('command.setup'))->setFactory(\Dravencms\Seo\Console\SetupCommand::class)->setAutowired(false)->addTag('console.command', 'seo:setup');
         if ($this->compiler->getExtensions(\Dravencms\User\DI\UserExtension::class) !== []) {
             $builder->addDefinition($this->prefix('aclProvider'))->setFactory(\Dravencms\Seo\AclProvider::class);
         }

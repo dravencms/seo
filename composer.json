@@ -17,7 +17,9 @@
   "require": {
     "dravencms/admin": "^3.0",
     "dravencms/locale": "^2.1",
-    "nette/di": "^3.2.6"
+    "nette/di": "^3.2.6",
+    "php": ">=8.2",
+    "symfony/console": "^6.4 || ^7.0 || ^8.0"
   },
   "suggest": {
     "dravencms/structure": "Provides sitemap entries and robots exclusions for Structure menus"

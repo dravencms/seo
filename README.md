@@ -147,3 +147,9 @@ The administrator group receives these permissions when the fixtures are loaded.
 ## License
 
 This package is licensed under the LGPL-3.0-only license.
+
+## Installing default data
+
+Run `php bin/console seo:setup` after creating or migrating the application schema. The command adds missing defaults in a transaction and can be rerun on an active project. It never purges data or updates existing records, including customized names, formats, templates, active flags and default selections. Run setup commands one at a time. Schema creation/migration remains separate. Fixtures are no longer registered.
+
+Adds the six existing tracking-service templates by name. Edited templates are retained. These are stored templates; setup does not assign tracking IDs or attach services to pages.

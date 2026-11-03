@@ -1,22 +1,20 @@
-<?php declare(strict_types = 1);
-/**
- * Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>.
- */
+<?php declare(strict_types=1);
 
-namespace Dravencms\Model\Seo\Fixtures;
+namespace Dravencms\Seo\Setup;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Dravencms\Model\Seo\Entities\TrackingService;
 
-class TrackingServiceFixtures extends AbstractFixture
+final class DefaultDataInstaller
 {
-    /**
-     * Load data fixtures with the passed EntityManager
-     *
-     * @param ObjectManager $manager
-     */
-    public function load(ObjectManager $manager): void
+    public function __construct(private EntityManagerInterface $manager) {}
+
+    public function install(): void
+    {
+        $this->manager->wrapInTransaction($this->addDefaults(...));
+    }
+
+    private function addDefaults(): void
     {
         $ga = '<script>
   (function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){
@@ -28,8 +26,7 @@ class TrackingServiceFixtures extends AbstractFixture
   ga(\'send\', \'pageview\');
 
 </script>';
-        $locale = new TrackingService('Google Analytics', $ga);
-        $manager->persist($locale);
+        $this->ensure('Google Analytics', $ga);
 
         $fbp = '<!-- Facebook Pixel Code -->
 <script>
@@ -46,8 +43,7 @@ src="https://www.facebook.com/tr?id=%IDENTIFIER%&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Facebook Pixel Code -->';
 
-        $locale = new TrackingService('Facebook Pixel', $fbp, TrackingService::POSITION_HEADER);
-        $manager->persist($locale);
+        $this->ensure('Facebook Pixel', $fbp, TrackingService::POSITION_HEADER);
 
         $gcro = '<script type="text/javascript">
   /* <![CDATA[ */
@@ -64,8 +60,7 @@ src="https://www.facebook.com/tr?id=%IDENTIFIER%&ev=PageView&noscript=1"
   </div>
   </noscript>';
 
-        $locale = new TrackingService('Google Conversion Remarketing Only', $gcro);
-        $manager->persist($locale);
+        $this->ensure('Google Conversion Remarketing Only', $gcro);
 
         $hoz = '<script type="text/javascript">
 //<![CDATA[
@@ -78,11 +73,10 @@ _hwq.push([\'showWidget\', \'21\']);
   ho.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.heureka.cz/direct/i/gjs.php?n=wdgt&sak=%IDENTIFIER%\';
   var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ho, s);
 })();
-//]]>  
+//]]>
 </script>';
 
-        $locale = new TrackingService('Heureka Overeno zakazniky', $hoz);
-        $manager->persist($locale);
+        $this->ensure('Heureka Overeno zakazniky', $hoz);
 
         $sklik = '<script type="text/javascript">
 /* <![CDATA[ */
@@ -91,8 +85,7 @@ var seznam_retargeting_id = %IDENTIFIER%;
 </script>
 <script type="text/javascript" src="//c.imedia.cz/js/retargeting.js"></script>';
 
-        $locale = new TrackingService('Sklik retargeting', $sklik);
-        $manager->persist($locale);
+        $this->ensure('Sklik retargeting', $sklik);
 
 
         $hotjar = '<script>
@@ -106,9 +99,14 @@ var seznam_retargeting_id = %IDENTIFIER%;
     })(window,document,\'//static.hotjar.com/c/hotjar-\',\'.js?sv=\');
 </script>';
 
-        $locale = new TrackingService('Hotjar', $hotjar);
-        $manager->persist($locale);
+        $this->ensure('Hotjar', $hotjar);
 
-        $manager->flush();
+    }
+
+    private function ensure(string $name, string $code, string $position = TrackingService::POSITION_BODY_BOTTOM): void
+    {
+        if ($this->manager->getRepository(TrackingService::class)->findOneBy(['name' => $name]) === null) {
+            $this->manager->persist(new TrackingService($name, $code, $position));
+        }
     }
 }
